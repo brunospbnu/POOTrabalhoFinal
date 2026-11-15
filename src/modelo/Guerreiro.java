@@ -1,5 +1,14 @@
 package modelo;
 
-public class Guerreiro {
+public class Guerreiro extends Personagem {
+
+	public Guerreiro(String nome, int danoBase, int vidaMaxima, int vidaAtual, int recursoMaximo, int recursoAtual,
+			Inventario mochila) {
+		super(nome, danoBase, vidaMaxima, vidaAtual, recursoMaximo, recursoAtual, mochila);
+	}
+
+	public String usarHabilidade() {
+		return "usou habilidade";
+	}
 
 }

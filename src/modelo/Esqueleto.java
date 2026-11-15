@@ -1,5 +1,13 @@
 package modelo;
 
-public class Esqueleto {
+public class Esqueleto extends Inimigo {
+
+	Esqueleto(String nome, int danoBase, int vidaMaxima, int vidaAtual) {
+		super(nome, danoBase, vidaMaxima, vidaAtual);
+	}
+
+	public String usarHabilidade() {
+		return "inimigo usou habilidade"; // escrevi qualquer coisa
+	}
 
 }

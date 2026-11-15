@@ -6,11 +6,13 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JMenu;
+import javax.swing.JTextField;
 
 public class Menu extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JTextField txtTeste;
 
 	/**
 	 * Launch the application.
@@ -37,6 +39,11 @@ public class Menu extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+
+		txtTeste = new JTextField();
+		txtTeste.setText("teste");
+		contentPane.add(txtTeste);
+		txtTeste.setColumns(10);
 
 	}
 
