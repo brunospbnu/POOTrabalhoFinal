@@ -109,14 +109,4 @@ public class Partida {
 		
 	}
 	
-	public static void carregarPartidaSalva() {
-		
-		// TODO fazer metodo. talvez colocar em nova classe gerenciadora de salvamento.
-	}
-	
-	public void salvar() {
-		
-		// TODO fazer metodo.
-		
-	}
 }
