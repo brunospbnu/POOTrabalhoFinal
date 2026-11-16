@@ -152,9 +152,9 @@ public class Partida {
 	
 	public boolean isFinalizada() {
 		boolean finalizada = false;
-		
-		// TODO fazer metodo.
-		
+		if (getStatusPartida() != StatusPartida.EM_ANDAMENTO) {
+			finalizada = true;
+		}
 		return finalizada;
 		
 	}
