@@ -15,6 +15,7 @@ import javax.swing.JFormattedTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JMenuBar;
+import javax.swing.JLabel;
 
 public class Menu extends JFrame {
 
@@ -69,6 +70,10 @@ public class Menu extends JFrame {
 		JButton btnSairDoJogo = new JButton("Sair do Jogo");
 		btnSairDoJogo.setBounds(23, 98, 130, 23);
 		contentPane.add(btnSairDoJogo);
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setBounds(208, 123, 46, 14);
+		contentPane.add(lblNewLabel);
 
 	}
 }
