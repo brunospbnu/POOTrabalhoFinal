@@ -9,6 +9,7 @@ public class Arqueiro extends Personagem {
 	
 	@Override
 	public String usarHabilidade() {
+		// TODO fazer metodo.
 		return "usou habilidade";
 	}
 

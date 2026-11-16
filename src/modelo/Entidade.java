@@ -50,19 +50,19 @@ public abstract class Entidade {
 	// -----------------------------------------------
 
 	public void receberDano(int valor) {
-
+		// TODO fazer metodo.
 	}
 
 	public void receberCura(int valor) {
-
+		// TODO fazer metodo.
 	}
 
 	public void atacar(Entidade alvo) {
-
+		// TODO fazer metodo.
 	}
 
 	public void defender() {
-
+		// TODO fazer metodo.
 	}
 
 }

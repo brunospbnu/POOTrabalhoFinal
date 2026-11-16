@@ -8,6 +8,7 @@ public class Esqueleto extends Inimigo {
 	
 	@Override
 	public String usarHabilidade() {
+		// TODO fazer metodo.
 		return "inimigo usou habilidade"; // escrevi qualquer coisa
 	}
 

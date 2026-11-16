@@ -42,11 +42,11 @@ public abstract class Personagem extends Entidade {
 	// --------------------------------------
 
 	public void abrirInventario() {
-
+		// TODO fazer metodo.
 	}
 
 	public String tomarPocao() {
-
+		// TODO fazer metodo.
 		return "tomou poção"; // escrevi qualquer coisa
 	}
 

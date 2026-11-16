@@ -7,6 +7,7 @@ public abstract class Inimigo extends Entidade {
 	}
 
 	public String acaoAutomatica() {
+		// TODO fazer metodo.
 		return "inimigo fez algo"; // escrevi qualquer coisa
 	}
 
