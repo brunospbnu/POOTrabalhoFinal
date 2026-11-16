@@ -6,7 +6,8 @@ public class Arqueiro extends Personagem {
 			Inventario mochila) {
 		super(nome, danoBase, vidaMaxima, vidaAtual, recursoMaximo, recursoAtual, mochila);
 	}
-
+	
+	@Override
 	public String usarHabilidade() {
 		return "usou habilidade";
 	}
