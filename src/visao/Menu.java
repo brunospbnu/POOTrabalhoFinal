@@ -7,12 +7,19 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JMenu;
 import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.BorderLayout;
+import javax.swing.JPasswordField;
+import java.awt.FlowLayout;
+import javax.swing.JFormattedTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JMenuBar;
 
 public class Menu extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField txtTeste;
 
 	/**
 	 * Launch the application.
@@ -34,17 +41,34 @@ public class Menu extends JFrame {
 	 * Create the frame.
 	 */
 	public Menu() {
+		setTitle("Guardiões da Relíquia");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 495, 355);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-
-		txtTeste = new JTextField();
-		txtTeste.setText("teste");
-		contentPane.add(txtTeste);
-		txtTeste.setColumns(10);
+		contentPane.setLayout(null);
+		
+		JButton btnNewButton = new JButton("Nova Partida");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		btnNewButton.setBounds(23, 30, 130, 23);
+		contentPane.add(btnNewButton);
+		
+		JButton btnConsultarRanking = new JButton("Consultar Ranking");
+		btnConsultarRanking.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnConsultarRanking.setBounds(23, 64, 130, 23);
+		contentPane.add(btnConsultarRanking);
+		
+		JButton btnSairDoJogo = new JButton("Sair do Jogo");
+		btnSairDoJogo.setBounds(23, 98, 130, 23);
+		contentPane.add(btnSairDoJogo);
 
 	}
-
 }
