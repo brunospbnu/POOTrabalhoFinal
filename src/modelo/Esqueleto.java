@@ -2,10 +2,11 @@ package modelo;
 
 public class Esqueleto extends Inimigo {
 
-	Esqueleto(String nome, int danoBase, int vidaMaxima, int vidaAtual) {
+	public Esqueleto(String nome, int danoBase, int vidaMaxima, int vidaAtual) {
 		super(nome, danoBase, vidaMaxima, vidaAtual);
 	}
-
+	
+	@Override
 	public String usarHabilidade() {
 		return "inimigo usou habilidade"; // escrevi qualquer coisa
 	}

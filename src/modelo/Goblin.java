@@ -2,7 +2,7 @@ package modelo;
 
 public class Goblin extends Inimigo {
 
-	Goblin(String nome, int danoBase, int vidaMaxima, int vidaAtual) {
+	public Goblin(String nome, int danoBase, int vidaMaxima, int vidaAtual) {
 		super(nome, danoBase, vidaMaxima, vidaAtual);
 	}
 
