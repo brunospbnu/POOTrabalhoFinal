@@ -23,13 +23,13 @@ public class Partida {
 		// 3. Instancia o herói escolhido usando polimorfismo
 	    switch (opcaoDeClasse) {
 	        case 0:
-	            this.personagemPartida = new Guerreiro("Guerreiro", 25, 150, 150, 30, 30, null);
+	            personagemPartida = new Guerreiro("Guerreiro", 25, 150, 150, 30, 30, null);
 	            break;
 	        case 1:
-	            this.personagemPartida = new Mago("Mago", 15, 80, 80, 100, 100, null);
+	            personagemPartida = new Mago("Mago", 15, 80, 80, 100, 100, null);
 	            break;
 	        case 2:
-	            this.personagemPartida = new Arqueiro("Arqueiro", 20, 100, 100, 50, 50, null);
+	            personagemPartida = new Arqueiro("Arqueiro", 20, 100, 100, 50, 50, null);
 	            break;
 	        default:
 	            throw new IllegalArgumentException("Classe inválida");
@@ -117,11 +117,9 @@ public class Partida {
 	    lista.add(new Esqueleto("Esqueleto Arqueiro", 10, 45, 45));
 	    
 	    // Inimigo 3 (Será o do Encontro 3 - O Boss)
-	    lista.add(new Bruxa("Bruxa Sombria", 15, 80, 80)); // Ou BossFinal, dependendo do nome da classe que usaram
+	    lista.add(new Bruxa("Bruxa Sombria", 15, 80, 80));
 	    
 	    return lista;
-		
-		
 	}
 	
 	public void executarAcaoTurno() {
@@ -131,7 +129,19 @@ public class Partida {
 	
 	public void avancarEncontro() {
 		
-		// TODO fazer metodo.
+		encontroAtual++;
+
+	    if (encontroAtual == 2) {
+	        inimigoAtual = inimigos.get(1); // Pega o Esqueleto
+	    } 
+	    else if (encontroAtual == 3) {
+	        inimigoAtual = inimigos.get(2); // Pega a Bruxa / Boss
+	    } 
+	    else {
+	        // Se passar de 3, o jogo acabou e o jogador venceu!
+	        statusPartida = StatusPartida.VITORIA;
+	    }
+	
 	}
 	
 	public void calcularPontuacaoFinal() {
