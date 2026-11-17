@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import java.awt.BorderLayout;
 import javax.swing.JPasswordField;
 import java.awt.FlowLayout;
+import java.awt.Frame;
 import java.awt.Image;
 
 import javax.swing.JFormattedTextField;
@@ -20,6 +21,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
+import java.awt.Toolkit;
 
 public class Menu extends JFrame {
 
@@ -46,6 +48,7 @@ public class Menu extends JFrame {
 	 * Create the frame.
 	 */
 	public Menu() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Menu.class.getResource("/Imagens/Icone.jpg")));
 		setTitle("Guardiões da Relíquia");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 733, 510);
@@ -66,12 +69,18 @@ public class Menu extends JFrame {
 		JButton btnConsultarRanking = new JButton("Consultar Ranking");
 		btnConsultarRanking.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 			}
 		});
 		btnConsultarRanking.setBounds(23, 212, 130, 23);
 		contentPane.add(btnConsultarRanking);
 		
 		JButton btnSairDoJogo = new JButton("Sair do Jogo");
+		btnSairDoJogo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 		btnSairDoJogo.setBounds(23, 275, 130, 23);
 		contentPane.add(btnSairDoJogo);
 		
