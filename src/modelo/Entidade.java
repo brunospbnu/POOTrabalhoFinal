@@ -12,7 +12,7 @@ public abstract class Entidade {
 	private int vidaMaxima;
 	private int vidaAtual;
 
-	public Entidade(String nome, int danoBase, int vidaMaxima, int vidaAtual) throws NomeInvalidoException, ValorMenorQue1 {
+	public Entidade(String nome, int danoBase, int vidaMaxima, int vidaAtual) throws NomeInvalidoException, ValorMenorQue1, ValorMenorQue0, ObjetoNulo {
 		setNome(nome);
 		setDanoBase(danoBase);
 		setVidaMaxima(vidaMaxima);
@@ -58,7 +58,7 @@ public abstract class Entidade {
 		return vidaAtual;
 	}
 
-	public void setVidaAtual(int vidaAtual) {
+	public void setVidaAtual(int vidaAtual) throws ValorMenorQue0 {
 		if (vidaAtual < 0 ) {
 			throw new ValorMenorQue0("Vida Atual");
 		}
@@ -66,7 +66,7 @@ public abstract class Entidade {
 	}
 	// -----------------------------------------------
 
-	public void receberDano(int valor) {
+	public void receberDano(int valor) throws ValorMenorQue1  {
 		if (valor < 1) {
 			throw new ValorMenorQue1("Dano Recebido");
 		}
@@ -74,7 +74,7 @@ public abstract class Entidade {
 		
 	}
 
-	public void receberCura(int valor) {
+	public void receberCura(int valor) throws ValorMenorQue1  {
 		if (valor < 1) {
 			throw new ValorMenorQue1("Cura Recebida");
 		}
@@ -82,7 +82,7 @@ public abstract class Entidade {
 		
 	}
 
-	public void atacar(Entidade alvo) {
+	public void atacar(Entidade alvo) throws ObjetoNulo {
 		if (alvo == null) {
 			throw new ObjetoNulo("Alvo"); 
 		}
