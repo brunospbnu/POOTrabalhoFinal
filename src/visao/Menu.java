@@ -18,6 +18,7 @@ import javax.swing.JFormattedTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
@@ -56,25 +57,29 @@ public class Menu extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JButton btnNewButton = new JButton("Nova Partida");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				// pedi para a IA me dar uma ajuda aqui
+
+				TelaCriacaoPersonagem telaCriacao = new TelaCriacaoPersonagem();
+				telaCriacao.setVisible(true);
+
 			}
 		});
 		btnNewButton.setBounds(23, 154, 130, 23);
 		contentPane.add(btnNewButton);
-		
+
 		JButton btnConsultarRanking = new JButton("Consultar Ranking");
 		btnConsultarRanking.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 			}
 		});
 		btnConsultarRanking.setBounds(23, 212, 130, 23);
 		contentPane.add(btnConsultarRanking);
-		
+
 		JButton btnSairDoJogo = new JButton("Sair do Jogo");
 		btnSairDoJogo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -83,7 +88,7 @@ public class Menu extends JFrame {
 		});
 		btnSairDoJogo.setBounds(23, 275, 130, 23);
 		contentPane.add(btnSairDoJogo);
-		
+
 		JLabel lblNewLabel = new JLabel("");
 		contentPane.add(lblNewLabel);
 
@@ -93,48 +98,38 @@ public class Menu extends JFrame {
 
 		// Evento que escuta o redimensionamento da janela
 		contentPane.addComponentListener(new java.awt.event.ComponentAdapter() {
-		    @Override
-		    public void componentResized(java.awt.event.ComponentEvent e) {
-		        int larguraAtual = contentPane.getWidth();
-		        int alturaAtual = contentPane.getHeight();
-		        
-		        if (larguraAtual > 0 && alturaAtual > 0) {
-		            // 1. Redimensiona a imagem de fundo
-		            lblNewLabel.setBounds(0, 0, larguraAtual, alturaAtual);
-		            Image imagemAjustada = imagemOriginal.getScaledInstance(larguraAtual, alturaAtual, Image.SCALE_SMOOTH);
-		            lblNewLabel.setIcon(new ImageIcon(imagemAjustada));
-		            
-		            // 2. Calcula a proporção da tela atual em relação ao tamanho base do WindowBuilder
-		            // O tamanho base aproximado do seu contentPane original era ~717x471
-		            double proporcaoX = larguraAtual / 717.0; 
-		            double proporcaoY = alturaAtual / 471.0;
-		            
-		            // 3. Reposiciona e redimensiona os botões multiplicando pela proporção
-		            // Valores base originais: btnNewButton(23, 154, 130, 23)
-		            btnNewButton.setBounds(
-		                (int)(23 * proporcaoX), 
-		                (int)(154 * proporcaoY), 
-		                (int)(130 * proporcaoX), 
-		                (int)(23 * proporcaoY)
-		            );
-		            
-		            // Valores base originais: btnConsultarRanking(23, 212, 130, 23)
-		            btnConsultarRanking.setBounds(
-		                (int)(23 * proporcaoX), 
-		                (int)(212 * proporcaoY), 
-		                (int)(130 * proporcaoX), 
-		                (int)(23 * proporcaoY)
-		            );
-		            
-		            // Valores base originais: btnSairDoJogo(23, 275, 130, 23)
-		            btnSairDoJogo.setBounds(
-		                (int)(23 * proporcaoX), 
-		                (int)(275 * proporcaoY), 
-		                (int)(130 * proporcaoX), 
-		                (int)(23 * proporcaoY)
-		            );
-		        }
-		    }
+			@Override
+			public void componentResized(java.awt.event.ComponentEvent e) {
+				int larguraAtual = contentPane.getWidth();
+				int alturaAtual = contentPane.getHeight();
+
+				if (larguraAtual > 0 && alturaAtual > 0) {
+					// 1. Redimensiona a imagem de fundo
+					lblNewLabel.setBounds(0, 0, larguraAtual, alturaAtual);
+					Image imagemAjustada = imagemOriginal.getScaledInstance(larguraAtual, alturaAtual,
+							Image.SCALE_SMOOTH);
+					lblNewLabel.setIcon(new ImageIcon(imagemAjustada));
+
+					// 2. Calcula a proporção da tela atual em relação ao tamanho base do
+					// WindowBuilder
+					// O tamanho base aproximado do seu contentPane original era ~717x471
+					double proporcaoX = larguraAtual / 717.0;
+					double proporcaoY = alturaAtual / 471.0;
+
+					// 3. Reposiciona e redimensiona os botões multiplicando pela proporção
+					// Valores base originais: btnNewButton(23, 154, 130, 23)
+					btnNewButton.setBounds((int) (23 * proporcaoX), (int) (154 * proporcaoY), (int) (130 * proporcaoX),
+							(int) (23 * proporcaoY));
+
+					// Valores base originais: btnConsultarRanking(23, 212, 130, 23)
+					btnConsultarRanking.setBounds((int) (23 * proporcaoX), (int) (212 * proporcaoY),
+							(int) (130 * proporcaoX), (int) (23 * proporcaoY));
+
+					// Valores base originais: btnSairDoJogo(23, 275, 130, 23)
+					btnSairDoJogo.setBounds((int) (23 * proporcaoX), (int) (275 * proporcaoY), (int) (130 * proporcaoX),
+							(int) (23 * proporcaoY));
+				}
+			}
 		});
 	}
 }
