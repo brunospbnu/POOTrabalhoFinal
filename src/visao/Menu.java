@@ -5,24 +5,15 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JMenu;
-import javax.swing.JTextField;
 import javax.swing.JButton;
-import java.awt.BorderLayout;
-import javax.swing.JPasswordField;
-import java.awt.FlowLayout;
-import java.awt.Frame;
 import java.awt.Image;
 
-import javax.swing.JFormattedTextField;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JMenuBar;
-import javax.swing.JOptionPane;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
-import javax.swing.SwingConstants;
 import java.awt.Toolkit;
+import java.awt.CardLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Menu extends JFrame {
 
@@ -49,49 +40,74 @@ public class Menu extends JFrame {
 	 * Create the frame.
 	 */
 	public Menu() {
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Menu.class.getResource("/Imagens/Icone.jpg")));
 		setTitle("Guardiões da Relíquia");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 733, 510);
+		setBounds(100, 100, 735, 512);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
-
-		JButton btnNewButton = new JButton("Nova Partida");
-		btnNewButton.addActionListener(new ActionListener() {
+		contentPane.setLayout(new CardLayout(0, 0));
+		
+		// -----------------------------------
+		
+		JPanel telaInicial = new JPanel();
+		contentPane.add(telaInicial, "name_21736119527300");
+		telaInicial.setLayout(null);
+		
+		
+		
+		
+		//NOVA PARTIDA
+		JButton btnNovaPartida = new JButton("Nova Partida");
+		btnNovaPartida.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// pedi para a IA me dar uma ajuda aqui
-
-				TelaCriacaoPersonagem telaCriacao = new TelaCriacaoPersonagem();
-				telaCriacao.setVisible(true);
-
+				CardLayout cl = (CardLayout) (contentPane.getLayout());
+				cl.show(contentPane, "novaPartida");
 			}
 		});
-		btnNewButton.setBounds(23, 154, 130, 23);
-		contentPane.add(btnNewButton);
-
-		JButton btnConsultarRanking = new JButton("Consultar Ranking");
-		btnConsultarRanking.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-			}
-		});
-		btnConsultarRanking.setBounds(23, 212, 130, 23);
-		contentPane.add(btnConsultarRanking);
-
+		btnNovaPartida.setBounds(37, 77, 145, 40);
+		telaInicial.add(btnNovaPartida);
+		
+		
+		// SAIR DO JOGO
 		JButton btnSairDoJogo = new JButton("Sair do Jogo");
 		btnSairDoJogo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 			}
 		});
-		btnSairDoJogo.setBounds(23, 275, 130, 23);
-		contentPane.add(btnSairDoJogo);
+		btnSairDoJogo.setBounds(37, 207, 145, 40);
+		telaInicial.add(btnSairDoJogo);
+		
+		
+		
+		// CONSULTAR RANKING--------
+		JButton btnConsultarRanking = new JButton("Consultar Ranking");
+		btnConsultarRanking.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				
+				
+			}
+		});
+		btnConsultarRanking.setBounds(37, 143, 145, 40);
+		telaInicial.add(btnConsultarRanking);
+		
+		
+		JLabel ImagemDeFundo = new JLabel("");
+		ImagemDeFundo.setBounds(0, 0, 709, 463);
+		telaInicial.add(ImagemDeFundo);
+		
+		
+	
+		JPanel novaPartida = new NovaPartida();
+		contentPane.add(novaPartida, "novaPartida");
 
-		JLabel lblNewLabel = new JLabel("");
-		contentPane.add(lblNewLabel);
 
+		
 		// 1. Carrega a imagem original APENAS UMA VEZ na memória
 		ImageIcon iconeOriginal = new ImageIcon(Menu.class.getResource("/Imagens/MenuPrincipal.jpg"));
 		Image imagemOriginal = iconeOriginal.getImage();
@@ -105,10 +121,10 @@ public class Menu extends JFrame {
 
 				if (larguraAtual > 0 && alturaAtual > 0) {
 					// 1. Redimensiona a imagem de fundo
-					lblNewLabel.setBounds(0, 0, larguraAtual, alturaAtual);
+					ImagemDeFundo.setBounds(0, 0, larguraAtual, alturaAtual);
 					Image imagemAjustada = imagemOriginal.getScaledInstance(larguraAtual, alturaAtual,
 							Image.SCALE_SMOOTH);
-					lblNewLabel.setIcon(new ImageIcon(imagemAjustada));
+					ImagemDeFundo.setIcon(new ImageIcon(imagemAjustada));
 
 					// 2. Calcula a proporção da tela atual em relação ao tamanho base do
 					// WindowBuilder
@@ -118,7 +134,7 @@ public class Menu extends JFrame {
 
 					// 3. Reposiciona e redimensiona os botões multiplicando pela proporção
 					// Valores base originais: btnNewButton(23, 154, 130, 23)
-					btnNewButton.setBounds((int) (23 * proporcaoX), (int) (154 * proporcaoY), (int) (130 * proporcaoX),
+					btnNovaPartida.setBounds((int) (23 * proporcaoX), (int) (154 * proporcaoY), (int) (130 * proporcaoX),
 							(int) (23 * proporcaoY));
 
 					// Valores base originais: btnConsultarRanking(23, 212, 130, 23)
