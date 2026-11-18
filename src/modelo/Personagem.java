@@ -8,7 +8,7 @@ public abstract class Personagem extends Entidade {
 
 	private int recursoAtual;
 	private int recursoMaximo;
-	private Inventario mochila;
+	private Inventario inventario;
 
 	public Personagem(String nome, int danoBase, int vidaMaxima, int vidaAtual, int recursoAtual, int recursoMaximo,
 			Inventario mochila) throws ValorMenorQue0, ValorMenorQue1, ObjetoNulo {
@@ -20,6 +20,7 @@ public abstract class Personagem extends Entidade {
 	}
 
 	// ----------------------------------------
+	
 	public int getRecursoAtual() {
 		return recursoAtual;
 	}
@@ -43,14 +44,14 @@ public abstract class Personagem extends Entidade {
 	}
 
 	public Inventario getMochila() {
-		return mochila;
+		return inventario;
 	}
 
-	public void setMochila(Inventario mochila) throws ObjetoNulo {
-		if (mochila == null) {
+	public void setMochila(Inventario inventario) throws ObjetoNulo {
+		if (inventario == null) {
 			throw new ObjetoNulo("Mochila");
 		}
-		this.mochila = mochila;
+		this.inventario = inventario;
 	}
 
 	// --------------------------------------

@@ -10,7 +10,10 @@ public class Arqueiro extends Personagem {
 	@Override
 	public String usarHabilidade() {
 		// TODO fazer metodo.
-		return "usou habilidade";
+		
+		
+		// A sugestão para facilitar a programação é fazer apenas uma habilidade por heroi personagem / inimigo.
+		return "Você usou habilidade: Flecha Divina";
 	}
 
 }

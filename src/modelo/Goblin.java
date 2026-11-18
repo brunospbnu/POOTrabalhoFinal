@@ -9,7 +9,10 @@ public class Goblin extends Inimigo {
 	@Override
 	public String usarHabilidade() {
 		// TODO fazer metodo.
-		return "Goblin Batedor usou habilidade"; // escrevi qualquer coisa
+		
+		
+		// A sugestão para facilitar a programação é fazer apenas uma habilidade por heroi personagem / inimigo.
+		return "O(a) inimigo: " + this.getNome() +" usou habilidade: Evasiva malandra";
 	}
 
 }

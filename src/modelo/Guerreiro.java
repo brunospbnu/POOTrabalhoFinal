@@ -9,7 +9,10 @@ public class Guerreiro extends Personagem {
 	@Override
 	public String usarHabilidade() {
 		// TODO fazer metodo.
-		return "usou habilidade"; // isso aqui é para um futuro teste
+		
+		
+		// A sugestão para facilitar a programação é fazer apenas uma habilidade por heroi personagem / inimigo.
+		return "Você usou habilidade: Quebra-Guarda";
 	}
 
 }

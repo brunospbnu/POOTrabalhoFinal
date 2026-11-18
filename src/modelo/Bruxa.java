@@ -9,7 +9,10 @@ public class Bruxa extends Inimigo{
 	@Override
 	public String usarHabilidade() {
 		// TODO fazer metodo.
-		return "inimigo usou habilidade"; // escrevi qualquer coisa
+		
+		
+		// A sugestão para facilitar a programação é fazer apenas uma habilidade por heroi personagem / inimigo.
+		return "O(a) inimigo: " + this.getNome() +" usou habilidade: Cura do Submundo";
 	}
 
 	
