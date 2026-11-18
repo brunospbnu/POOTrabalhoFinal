@@ -11,16 +11,16 @@ public abstract class Personagem extends Entidade {
 	private Inventario inventario;
 
 	public Personagem(String nome, int danoBase, int vidaMaxima, int vidaAtual, int recursoAtual, int recursoMaximo,
-			Inventario mochila) throws ValorMenorQue0, ValorMenorQue1, ObjetoNulo {
-		
-		super(nome, danoBase, vidaMaxima, vidaAtual);
+			boolean estaDefendendo, Inventario mochila) throws ValorMenorQue0, ValorMenorQue1, ObjetoNulo {
+
+		super(nome, danoBase, vidaMaxima, vidaAtual, estaDefendendo);
 		setRecursoAtual(recursoAtual);
 		setRecursoMaximo(recursoMaximo);
 		setMochila(mochila);
 	}
 
 	// ----------------------------------------
-	
+
 	public int getRecursoAtual() {
 		return recursoAtual;
 	}
@@ -36,7 +36,7 @@ public abstract class Personagem extends Entidade {
 		return recursoMaximo;
 	}
 
-	public void setRecursoMaximo(int recursoMaximo)  throws ValorMenorQue1 {
+	public void setRecursoMaximo(int recursoMaximo) throws ValorMenorQue1 {
 		if (recursoMaximo < 1) {
 			throw new ValorMenorQue1("Recurso Maximo");
 		}
