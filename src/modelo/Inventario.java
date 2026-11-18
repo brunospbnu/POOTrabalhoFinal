@@ -1,18 +1,23 @@
 package modelo;
 
+import excecoes.ValorMenorQue0;
+
 public class Inventario {
 	
 	private int qtdPocoes;
 	
-	public Inventario() {
-		
+	public Inventario(int qtdPocoes) throws ValorMenorQue0 {
+		setQtdPocoes(qtdPocoes);
 	}
 
 	public int getQtdPocoes() {
 		return qtdPocoes;
 	}
 
-	public void setQtdPocoes(int qtdPocoes) {
+	public void setQtdPocoes(int qtdPocoes) throws ValorMenorQue0 {
+		if (qtdPocoes <0) {
+			throw new ValorMenorQue0("A quantidade de poções");
+		}
 		this.qtdPocoes = qtdPocoes;
 	}
 	
@@ -23,7 +28,10 @@ public class Inventario {
 	public boolean consumirPocao() {
 		boolean pocaoConsumida = false;
 		
-		// TODO fazer isso.
+		if (qtdPocoes > 0) {
+			qtdPocoes -= 1;
+			pocaoConsumida = true;
+		}
 		
 		return pocaoConsumida;
 	}
