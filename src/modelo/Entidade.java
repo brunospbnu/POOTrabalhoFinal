@@ -94,8 +94,8 @@ public abstract class Entidade {
 			this.estaDefendendo = false;
 		}
 
-		if (valor < 0) {
-			throw new ValorMenorQue0("Dano Recebido");
+		if (valor < 1) {
+			throw new ValorMenorQue1("Dano Recebido");
 		}
 		this.vidaAtual -= valor;
 		if (this.vidaAtual < 0) {
