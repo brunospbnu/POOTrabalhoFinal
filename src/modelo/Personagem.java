@@ -1,5 +1,9 @@
 package modelo;
 
+import excecoes.ObjetoNulo;
+import excecoes.ValorMenorQue0;
+import excecoes.ValorMenorQue1;
+
 public abstract class Personagem extends Entidade {
 
 	private int recursoAtual;
@@ -7,7 +11,8 @@ public abstract class Personagem extends Entidade {
 	private Inventario mochila;
 
 	public Personagem(String nome, int danoBase, int vidaMaxima, int vidaAtual, int recursoAtual, int recursoMaximo,
-			Inventario mochila) {
+			Inventario mochila) throws ValorMenorQue0, ValorMenorQue1, ObjetoNulo {
+		
 		super(nome, danoBase, vidaMaxima, vidaAtual);
 		setRecursoAtual(recursoAtual);
 		setRecursoMaximo(recursoMaximo);
@@ -19,7 +24,10 @@ public abstract class Personagem extends Entidade {
 		return recursoAtual;
 	}
 
-	public void setRecursoAtual(int recursoAtual) {
+	public void setRecursoAtual(int recursoAtual) throws ValorMenorQue0 {
+		if (recursoAtual < 0) {
+			throw new ValorMenorQue0("Recurso Atual");
+		}
 		this.recursoAtual = recursoAtual;
 	}
 
@@ -27,7 +35,10 @@ public abstract class Personagem extends Entidade {
 		return recursoMaximo;
 	}
 
-	public void setRecursoMaximo(int recursoMaximo) {
+	public void setRecursoMaximo(int recursoMaximo)  throws ValorMenorQue1 {
+		if (recursoMaximo < 1) {
+			throw new ValorMenorQue1("Recurso Maximo");
+		}
 		this.recursoMaximo = recursoMaximo;
 	}
 
@@ -35,7 +46,10 @@ public abstract class Personagem extends Entidade {
 		return mochila;
 	}
 
-	public void setMochila(Inventario mochila) {
+	public void setMochila(Inventario mochila) throws ObjetoNulo {
+		if (mochila == null) {
+			throw new ObjetoNulo("Mochila");
+		}
 		this.mochila = mochila;
 	}
 
