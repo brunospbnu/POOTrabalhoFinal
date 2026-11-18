@@ -9,7 +9,7 @@ public class Goblin extends Inimigo {
 	@Override
 	public String usarHabilidade() {
 		// TODO fazer metodo.
-		return "inimigo usou habilidade"; // escrevi qualquer coisa
+		return "Goblin Batedor usou habilidade"; // escrevi qualquer coisa
 	}
 
 }
