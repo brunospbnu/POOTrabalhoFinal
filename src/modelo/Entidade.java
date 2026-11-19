@@ -123,7 +123,13 @@ public abstract class Entidade {
 			throw new ValorMenorQue1("Cura Recebida");
 		}
 		
-		vidaAtual += valor;
+		if ((vidaAtual + valor) > vidaMaxima) {
+			vidaAtual = vidaMaxima;
+		}
+		else {
+			vidaAtual += valor;	
+		}
+		
 		String textoDeRetorno = this.nome + "recebeu cura de " + valor + " unidades de vida !!! ";
 		return textoDeRetorno;
 	}
