@@ -40,7 +40,7 @@ public class Menu extends JFrame {
 	 * Create the frame.
 	 */
 	public Menu() {
-		
+
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Menu.class.getResource("/Imagens/Icone.jpg")));
 		setTitle("Guardiões da Relíquia");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,17 +49,15 @@ public class Menu extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new CardLayout(0, 0));
-		
+
 		// -----------------------------------
-		
+
 		JPanel telaInicial = new JPanel();
-		contentPane.add(telaInicial, "name_21736119527300");
+		contentPane.add(telaInicial, "telaInicial"); // mudei para telaInicial para deixar mais simples, nome de antes:
+														// name_21736119527300
 		telaInicial.setLayout(null);
-		
-		
-		
-		
-		//NOVA PARTIDA
+
+		// NOVA PARTIDA
 		JButton btnNovaPartida = new JButton("Nova Partida");
 		btnNovaPartida.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -69,8 +67,7 @@ public class Menu extends JFrame {
 		});
 		btnNovaPartida.setBounds(37, 77, 145, 40);
 		telaInicial.add(btnNovaPartida);
-		
-		
+
 		// SAIR DO JOGO
 		JButton btnSairDoJogo = new JButton("Sair do Jogo");
 		btnSairDoJogo.addActionListener(new ActionListener() {
@@ -80,34 +77,24 @@ public class Menu extends JFrame {
 		});
 		btnSairDoJogo.setBounds(37, 207, 145, 40);
 		telaInicial.add(btnSairDoJogo);
-		
-		
-		
+
 		// CONSULTAR RANKING--------
 		JButton btnConsultarRanking = new JButton("Consultar Ranking");
 		btnConsultarRanking.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				
-				
-				
+
 			}
 		});
 		btnConsultarRanking.setBounds(37, 143, 145, 40);
 		telaInicial.add(btnConsultarRanking);
-		
-		
+
 		JLabel imagemDeFundo = new JLabel("");
 		imagemDeFundo.setBounds(0, 0, 709, 463);
 		telaInicial.add(imagemDeFundo);
-		
-		
-	
+
 		JPanel novaPartida = new NovaPartida();
 		contentPane.add(novaPartida, "novaPartida");
 
-
-		
 		// 1. Carrega a imagem original APENAS UMA VEZ na memória
 		ImageIcon iconeOriginal = new ImageIcon(Menu.class.getResource("/Imagens/MenuPrincipal.jpg"));
 		Image imagemOriginal = iconeOriginal.getImage();
