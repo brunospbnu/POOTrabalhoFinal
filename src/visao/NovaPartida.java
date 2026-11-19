@@ -23,19 +23,19 @@ public class NovaPartida extends JPanel {
 		JLabel tituloDoMenu = new JLabel("Escolha uma classe para sua aventura:");
 		tituloDoMenu.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		tituloDoMenu.setHorizontalAlignment(SwingConstants.CENTER);
-		tituloDoMenu.setBounds(227, 63, 352, 48);
+		tituloDoMenu.setBounds(202, 18, 352, 48);
 		add(tituloDoMenu);
 
-		JButton guerreiro = new JButton("Guerreiro");
-		guerreiro.setBounds(37, 143, 145, 40);
+		JButton guerreiro = new JButton("Escolher");
+		guerreiro.setBounds(37, 268, 145, 40);
 		add(guerreiro);
 
-		JButton arqueiro = new JButton("Arqueiro");
-		arqueiro.setBounds(37, 218, 145, 40);
+		JButton arqueiro = new JButton("Escolher");
+		arqueiro.setBounds(327, 268, 145, 40);
 		add(arqueiro);
 
-		JButton mago = new JButton("Mago");
-		mago.setBounds(37, 300, 145, 40);
+		JButton mago = new JButton("Escolher");
+		mago.setBounds(622, 268, 145, 40);
 		add(mago);
 
 		JButton voltar = new JButton("Voltar");
@@ -55,10 +55,15 @@ public class NovaPartida extends JPanel {
 		});
 
 		JLabel imagemDeFundo = new JLabel("");
-		imagemDeFundo.setBounds(0, 0, 1088, 463);
+		imagemDeFundo.setBounds(0, 471, 1088, 68);
 		add(imagemDeFundo);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(NovaPartida.class.getResource("/Imagens/Cavaleiro.png")));
+		lblNewLabel.setBounds(65, 123, 91, 107);
+		add(lblNewLabel);
 
-		ImageIcon iconeOriginal = new ImageIcon(Menu.class.getResource("/Imagens/MenuPrincipal.jpg"));
+		ImageIcon iconeOriginal = new ImageIcon(Menu.class.getResource("/Imagens/SomenteFundo.jpg"));
 		Image imagemOriginal = iconeOriginal.getImage();
 
 		// Evento que escuta o redimensionamento da janela
@@ -89,15 +94,15 @@ public class NovaPartida extends JPanel {
 							(int) (48 * proporcaoY));
 
 					// 37, 143, 145, 40
-					guerreiro.setBounds((int) (37 * proporcaoX), (int) (143 * proporcaoY), (int) (145 * proporcaoX),
+					guerreiro.setBounds((int) (37 * proporcaoX), (int) (268 * proporcaoY), (int) (145 * proporcaoX),
 							(int) (40 * proporcaoY));
 
 					// 37, 218, 145, 40
-					arqueiro.setBounds((int) (37 * proporcaoX), (int) (218 * proporcaoY), (int) (145 * proporcaoX),
+					arqueiro.setBounds((int) (327 * proporcaoX), (int) (268 * proporcaoY), (int) (145 * proporcaoX),
 							(int) (40 * proporcaoY));
 
 					// 37, 300, 145, 40
-					mago.setBounds((int) (37 * proporcaoX), (int) (300 * proporcaoY), (int) (145 * proporcaoX),
+					mago.setBounds((int) (622 * proporcaoX), (int) (268 * proporcaoY), (int) (145 * proporcaoX),
 							(int) (40 * proporcaoY));
 
 					// 37, 370, 145, 40
