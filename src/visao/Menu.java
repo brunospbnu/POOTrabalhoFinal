@@ -18,7 +18,7 @@ import java.awt.event.ActionEvent;
 public class Menu extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
+	protected static JPanel contentPane;
 
 	/**
 	 * Launch the application.
@@ -97,9 +97,9 @@ public class Menu extends JFrame {
 		telaInicial.add(btnConsultarRanking);
 		
 		
-		JLabel ImagemDeFundo = new JLabel("");
-		ImagemDeFundo.setBounds(0, 0, 709, 463);
-		telaInicial.add(ImagemDeFundo);
+		JLabel imagemDeFundo = new JLabel("");
+		imagemDeFundo.setBounds(0, 0, 709, 463);
+		telaInicial.add(imagemDeFundo);
 		
 		
 	
@@ -114,17 +114,16 @@ public class Menu extends JFrame {
 
 		// Evento que escuta o redimensionamento da janela
 		contentPane.addComponentListener(new java.awt.event.ComponentAdapter() {
-			@Override
 			public void componentResized(java.awt.event.ComponentEvent e) {
 				int larguraAtual = contentPane.getWidth();
 				int alturaAtual = contentPane.getHeight();
 
 				if (larguraAtual > 0 && alturaAtual > 0) {
 					// 1. Redimensiona a imagem de fundo
-					ImagemDeFundo.setBounds(0, 0, larguraAtual, alturaAtual);
+					imagemDeFundo.setBounds(0, 0, larguraAtual, alturaAtual);
 					Image imagemAjustada = imagemOriginal.getScaledInstance(larguraAtual, alturaAtual,
 							Image.SCALE_SMOOTH);
-					ImagemDeFundo.setIcon(new ImageIcon(imagemAjustada));
+					imagemDeFundo.setIcon(new ImageIcon(imagemAjustada));
 
 					// 2. Calcula a proporção da tela atual em relação ao tamanho base do
 					// WindowBuilder
@@ -134,16 +133,16 @@ public class Menu extends JFrame {
 
 					// 3. Reposiciona e redimensiona os botões multiplicando pela proporção
 					// Valores base originais: btnNewButton(23, 154, 130, 23)
-					btnNovaPartida.setBounds((int) (23 * proporcaoX), (int) (154 * proporcaoY), (int) (130 * proporcaoX),
-							(int) (23 * proporcaoY));
+					btnNovaPartida.setBounds((int) (37 * proporcaoX), (int) (77 * proporcaoY), (int) (145 * proporcaoX),
+							(int) (40 * proporcaoY));
 
 					// Valores base originais: btnConsultarRanking(23, 212, 130, 23)
-					btnConsultarRanking.setBounds((int) (23 * proporcaoX), (int) (212 * proporcaoY),
-							(int) (130 * proporcaoX), (int) (23 * proporcaoY));
+					btnConsultarRanking.setBounds((int) (37 * proporcaoX), (int) (143 * proporcaoY),
+							(int) (145 * proporcaoX), (int) (40 * proporcaoY));
 
 					// Valores base originais: btnSairDoJogo(23, 275, 130, 23)
-					btnSairDoJogo.setBounds((int) (23 * proporcaoX), (int) (275 * proporcaoY), (int) (130 * proporcaoX),
-							(int) (23 * proporcaoY));
+					btnSairDoJogo.setBounds((int) (37 * proporcaoX), (int) (207 * proporcaoY), (int) (145 * proporcaoX),
+							(int) (40 * proporcaoY));
 				}
 			}
 		});
