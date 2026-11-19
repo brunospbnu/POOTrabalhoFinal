@@ -24,13 +24,13 @@ public class Partida {
 		// 3. Instancia o herói escolhido usando polimorfismo
 		switch (opcaoDeClasse) {
 		case 0:
-			personagemPartida = new Guerreiro ("Guerreiro", 25, 150, 150, 30, 30, null);
+			personagemPartida = new Guerreiro ("Guerreiro", 25, 150, 150, 30, 30,false, null);
 			break;
 		case 1:
-			personagemPartida = new Mago("Mago", 15, 80, 80, 100, 100, null);
+			personagemPartida = new Mago("Mago", 15, 80, 80, 100, 100, false, null);
 			break;
 		case 2:
-			personagemPartida = new Arqueiro("Arqueiro", 20, 100, 100, 50, 50, null);
+			personagemPartida = new Arqueiro("Arqueiro", 20, 100, 100, 50, 50, false, null);
 			break;
 		default:
 			throw new IllegalArgumentException("Classe inválida");
@@ -112,13 +112,13 @@ public class Partida {
 		List<Inimigo> lista = new ArrayList<>();
 
 		// Inimigo 1 (Será o do Encontro 1)
-		lista.add(new Goblin("Goblin Batedor", 5, 30, 30));
+		lista.add(new Goblin("Goblin Batedor", 5, 30, 30, false));
 
 		// Inimigo 2 (Será o do Encontro 2)
-		lista.add(new Esqueleto("Esqueleto Arqueiro", 10, 45, 45));
+		lista.add(new Esqueleto("Esqueleto Arqueiro", 10, 45, 45, false));
 
 		// Inimigo 3 (Será o do Encontro 3 - O Boss)
-		lista.add(new Bruxa("Bruxa Sombria", 15, 80, 80));
+		lista.add(new Bruxa("Bruxa Sombria", 15, 80, 80, false));
 
 		return lista;
 	}

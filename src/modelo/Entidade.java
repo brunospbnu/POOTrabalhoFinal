@@ -11,8 +11,8 @@ public abstract class Entidade {
 	private int danoBase;
 	private int vidaMaxima;
 	private int vidaAtual;
-	// comentei em numeração todas as mudanças feitas
-	// 1- novo atributo que vai controlar o estado de defesa
+	
+	// Atributo que vai controlar o estado de defesa:
 	private boolean estaDefendendo;
 
 	public Entidade(String nome, int danoBase, int vidaMaxima, int vidaAtual, boolean estaDefendendo)
@@ -21,7 +21,6 @@ public abstract class Entidade {
 		setDanoBase(danoBase);
 		setVidaMaxima(vidaMaxima);
 		setVidaAtual(vidaAtual);
-		// 2- método set
 		setEstaDefendendo(estaDefendendo);
 
 	}
@@ -45,7 +44,7 @@ public abstract class Entidade {
 
 	public void setDanoBase(int danoBase) throws ValorMenorQue1 {
 		if (danoBase < 1) {
-			throw new ValorMenorQue1("Dano Base"); // vi que estava faltando o lançamento dessa exceção
+			throw new ValorMenorQue1("Dano Base");
 		}
 		this.danoBase = danoBase;
 	}
@@ -72,8 +71,7 @@ public abstract class Entidade {
 		this.vidaAtual = vidaAtual;
 	}
 
-	// 3- método get e set do novo atributo que comentei lá em cima
-	public boolean isEstaDefendendo() {
+	public boolean estaDefendendo() {
 		return estaDefendendo;
 	}
 
@@ -83,40 +81,60 @@ public abstract class Entidade {
 
 	// -----------------------------------------------
 
-	// 5- método alterado com a adição do novo atributo
-	public void receberDano(int valor) throws ValorMenorQue1 {
-
-		if (this.estaDefendendo) {
+	// Metodo de receber dano considerando atributo de defesa
+	public String receberDano(int valor) throws ValorMenorQue1 { 
+		
+		if (valor < 1) { // primeiro a validação do valor recebido.
+			throw new ValorMenorQue1("Dano Recebido");
+		}
+		
+		// metodo alterado para String para retornar a informação da defesa efetuada e do dano recebido.
+		String textoDeRetorno = this.nome + " recebeu uma tentativa de ataque de: " + valor + "unidades de vida";
+		
+		
+		// aplicação da defesa:
+		if (this.estaDefendendo && valor >=2) { 
+			// validação para que a defesa se aplique somente se for 2 ou mais o dano, 
+			// para que ao dividir por 2 o resultado minimo seja 1 inteiro.
+			
 			valor = valor / 2; // ao defender, o dano do atacante será reduzido pela metade
-			System.out.println(this.nome + " defendeu parte do ataque!");
+			
+			
+			textoDeRetorno = this.nome + " defendeu metade do ataque! \n";
 
 			// isso aqui vai resetar a defesa após absorver o golpe
 			this.estaDefendendo = false;
 		}
 
-		if (valor < 1) {
-			throw new ValorMenorQue1("Dano Recebido");
-		}
+		
 		this.vidaAtual -= valor;
 		if (this.vidaAtual < 0) {
 			this.vidaAtual = 0;
 		}
+		
+		textoDeRetorno += this.nome + "Recebeu " + valor + " de dano efetivo !!!";
+		
+		return textoDeRetorno;
 
 	}
 
-	public void receberCura(int valor) throws ValorMenorQue1 {
+	public String receberCura(int valor) throws ValorMenorQue1 {
 		if (valor < 1) {
 			throw new ValorMenorQue1("Cura Recebida");
 		}
+		
 		vidaAtual += valor;
-
+		String textoDeRetorno = this.nome + "recebeu cura de " + valor + " unidades de vida !!! ";
+		return textoDeRetorno;
 	}
 
-	public void atacar(Entidade alvo) throws ObjetoNulo, ValorMenorQue1 {
+	public String atacar(Entidade alvo) throws ObjetoNulo, ValorMenorQue1 {
 		if (alvo == null) {
 			throw new ObjetoNulo("Alvo");
 		}
 		alvo.receberDano(danoBase);
+		String textoDeRetorno = this.nome + " efetuou uma tentativa de ataque de " + danoBase + " unidades de vida !!!";
+		return textoDeRetorno;
 	}
 
 	// 4- aqui precisa retornar true
