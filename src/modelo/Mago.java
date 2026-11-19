@@ -7,9 +7,18 @@ public class Mago extends Personagem {
 		super(nome, danoBase, vidaMaxima, vidaAtual, recursoMaximo, recursoAtual, estaDefendendo, mochila);
 	}
 
+
 	@Override
-	public String usarHabilidade() {
-		// TODO fazer metodo.
+	public String usarHabilidade(Inimigo alvo) {
+		// verifica se tem 40 de recurso, se não tiver retorna erro, 
+		// se tiver recurso suficiente aplica a habilidade que da danoBase x 3 de dano.
+				
+		if (this.getRecursoAtual() < 40) {
+			throw new IllegalArgumentException("Recurso Insuficiente");
+			}
+				
+		alvo.receberDano(this.getDanoBase() * 3);
+		this.setRecursoAtual(this.getRecursoAtual() - 40);
 
 		// A sugestão para facilitar a programação é fazer apenas uma habilidade por
 		// heroi personagem / inimigo.

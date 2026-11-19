@@ -8,8 +8,17 @@ public class Guerreiro extends Personagem {
 	}
 
 	@Override
-	public String usarHabilidade() {
-		// TODO fazer metodo.
+	public String usarHabilidade(Inimigo alvo) {
+		
+		// verifica se tem 20 de recurso, se não tiver retorna erro, 
+		// se tiver recurso suficiente aplica a habilidade que da dano em dobro no inimigo e reduz o recurso em 20 pontos.
+		
+		if (this.getRecursoAtual() < 20) {
+			throw new IllegalArgumentException("Recurso Insuficiente");
+		}
+		
+		alvo.receberDano(this.getDanoBase() *2);
+		this.setRecursoAtual(this.getRecursoAtual() - 20);
 
 		// A sugestão para facilitar a programação é fazer apenas uma habilidade por
 		// heroi personagem / inimigo.
