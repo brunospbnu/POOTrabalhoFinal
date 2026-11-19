@@ -5,7 +5,6 @@ import java.awt.Image;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -28,19 +27,19 @@ public class NovaPartida extends JPanel {
 		add(tituloDoMenu);
 
 		JButton guerreiro = new JButton("Guerreiro");
-		guerreiro.setBounds(37, 77, 145, 40);
+		guerreiro.setBounds(37, 143, 145, 40);
 		add(guerreiro);
 
 		JButton arqueiro = new JButton("Arqueiro");
-		arqueiro.setBounds(37, 143, 145, 40);
+		arqueiro.setBounds(37, 218, 145, 40);
 		add(arqueiro);
 
 		JButton mago = new JButton("Mago");
-		mago.setBounds(37, 207, 145, 40);
+		mago.setBounds(37, 300, 145, 40);
 		add(mago);
 
 		JButton voltar = new JButton("Voltar");
-		voltar.setBounds(37, 277, 145, 40);
+		voltar.setBounds(37, 370, 145, 40);
 		add(voltar);
 
 		voltar.addActionListener(new java.awt.event.ActionListener() {
@@ -89,20 +88,20 @@ public class NovaPartida extends JPanel {
 					tituloDoMenu.setBounds((int) (227 * proporcaoX), (int) (63 * proporcaoY), (int) (352 * proporcaoX),
 							(int) (48 * proporcaoY));
 
-					// 37, 77, 145, 40
-					guerreiro.setBounds((int) (37 * proporcaoX), (int) (77 * proporcaoY), (int) (145 * proporcaoX),
-							(int) (40 * proporcaoY));
-
 					// 37, 143, 145, 40
-					arqueiro.setBounds((int) (37 * proporcaoX), (int) (143 * proporcaoY), (int) (145 * proporcaoX),
+					guerreiro.setBounds((int) (37 * proporcaoX), (int) (143 * proporcaoY), (int) (145 * proporcaoX),
 							(int) (40 * proporcaoY));
 
-					// 37, 207, 145, 40
-					mago.setBounds((int) (37 * proporcaoX), (int) (207 * proporcaoY), (int) (145 * proporcaoX),
+					// 37, 218, 145, 40
+					arqueiro.setBounds((int) (37 * proporcaoX), (int) (218 * proporcaoY), (int) (145 * proporcaoX),
 							(int) (40 * proporcaoY));
 
-					// 37, 277, 145, 40
-					voltar.setBounds((int) (37 * proporcaoX), (int) (277 * proporcaoY), (int) (145 * proporcaoX),
+					// 37, 300, 145, 40
+					mago.setBounds((int) (37 * proporcaoX), (int) (300 * proporcaoY), (int) (145 * proporcaoX),
+							(int) (40 * proporcaoY));
+
+					// 37, 370, 145, 40
+					voltar.setBounds((int) (37 * proporcaoX), (int) (370 * proporcaoY), (int) (145 * proporcaoX),
 							(int) (40 * proporcaoY));
 
 				}

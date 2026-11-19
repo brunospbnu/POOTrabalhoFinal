@@ -65,7 +65,7 @@ public class Menu extends JFrame {
 				cl.show(contentPane, "novaPartida");
 			}
 		});
-		btnNovaPartida.setBounds(37, 77, 145, 40);
+		btnNovaPartida.setBounds(37, 143, 145, 40);
 		telaInicial.add(btnNovaPartida);
 
 		// SAIR DO JOGO
@@ -75,7 +75,7 @@ public class Menu extends JFrame {
 				System.exit(0);
 			}
 		});
-		btnSairDoJogo.setBounds(37, 207, 145, 40);
+		btnSairDoJogo.setBounds(37, 300, 145, 40);
 		telaInicial.add(btnSairDoJogo);
 
 		// CONSULTAR RANKING--------
@@ -85,7 +85,7 @@ public class Menu extends JFrame {
 
 			}
 		});
-		btnConsultarRanking.setBounds(37, 143, 145, 40);
+		btnConsultarRanking.setBounds(37, 218, 145, 40);
 		telaInicial.add(btnConsultarRanking);
 
 		JLabel imagemDeFundo = new JLabel("");
@@ -119,16 +119,16 @@ public class Menu extends JFrame {
 					double proporcaoY = alturaAtual / 471.0;
 
 					// 3. Reposiciona e redimensiona os botões multiplicando pela proporção
-					// Valores base originais: btnNewButton(23, 154, 130, 23)
-					btnNovaPartida.setBounds((int) (37 * proporcaoX), (int) (77 * proporcaoY), (int) (145 * proporcaoX),
+					// Valores base originais: btnNewButton(37, 143, 145, 40)
+					btnNovaPartida.setBounds((int) (37 * proporcaoX), (int) (143 * proporcaoY), (int) (145 * proporcaoX),
 							(int) (40 * proporcaoY));
 
-					// Valores base originais: btnConsultarRanking(23, 212, 130, 23)
-					btnConsultarRanking.setBounds((int) (37 * proporcaoX), (int) (143 * proporcaoY),
+					// Valores base originais: btnConsultarRanking(37, 218, 145, 40)
+					btnConsultarRanking.setBounds((int) (37 * proporcaoX), (int) (218 * proporcaoY),
 							(int) (145 * proporcaoX), (int) (40 * proporcaoY));
 
-					// Valores base originais: btnSairDoJogo(23, 275, 130, 23)
-					btnSairDoJogo.setBounds((int) (37 * proporcaoX), (int) (207 * proporcaoY), (int) (145 * proporcaoX),
+					// Valores base originais: btnSairDoJogo(37, 300, 145, 40)
+					btnSairDoJogo.setBounds((int) (37 * proporcaoX), (int) (300 * proporcaoY), (int) (145 * proporcaoX),
 							(int) (40 * proporcaoY));
 				}
 			}
