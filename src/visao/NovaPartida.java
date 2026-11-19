@@ -10,7 +10,6 @@ import javax.swing.SwingConstants;
 public class NovaPartida extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
-	private JTextField txtGuerreiro;
 	private JTextField txtArqueiro;
 	private JTextField txtMago;
 	
@@ -20,24 +19,18 @@ public class NovaPartida extends JPanel {
 	 */
 	public NovaPartida() {
 		
-		setLayout(null); // Aplica o layout diretamente neste JPanel
-		
-		txtGuerreiro = new JTextField();
-		txtGuerreiro.setText("Guerreiro");
-		txtGuerreiro.setBounds(85, 130, 86, 20);
-		add(txtGuerreiro); // Adiciona diretamente neste JPanel
-		txtGuerreiro.setColumns(10);
+		setLayout(null);
 		
 		txtArqueiro = new JTextField();
 		txtArqueiro.setText("Arqueiro");
 		txtArqueiro.setColumns(10);
-		txtArqueiro.setBounds(85, 191, 86, 20);
+		txtArqueiro.setBounds(263, 130, 86, 20);
 		add(txtArqueiro);
 		
 		txtMago = new JTextField();
 		txtMago.setText("Mago");
 		txtMago.setColumns(10);
-		txtMago.setBounds(85, 250, 86, 20);
+		txtMago.setBounds(415, 130, 86, 20);
 		add(txtMago);
 		
 		JLabel lblNewLabel_1 = new JLabel("Escolha uma classe para sua aventura:");
@@ -47,11 +40,14 @@ public class NovaPartida extends JPanel {
 		add(lblNewLabel_1);
 		
 		JLabel ImagemDeFundoNvPartida = new JLabel("");
-		ImagemDeFundoNvPartida.setBounds(0, 0, 709, 463);
+		ImagemDeFundoNvPartida.setBounds(0, 0, 753, 463);
 		add(ImagemDeFundoNvPartida);
+		
+		JLabel lblNewLabel = new JLabel("Guerreiro");
+		lblNewLabel.setBounds(85, 214, 72, 12);
+		add(lblNewLabel);
 
 	}
-	
 }
 
 
