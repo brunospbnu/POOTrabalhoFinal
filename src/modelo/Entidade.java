@@ -137,9 +137,10 @@ public abstract class Entidade {
 		return textoDeRetorno;
 	}
 
-	// 4- aqui precisa retornar true
-	public void defender() {
+	// Aqui o metodo de defesa muda o atribuo para true.
+	public String defender() {
 		this.estaDefendendo = true;
+		return this.nome + " ativou a defesa !!!";
 	}
 
 }

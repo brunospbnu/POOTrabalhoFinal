@@ -16,7 +16,7 @@ public abstract class Personagem extends Entidade {
 		super(nome, danoBase, vidaMaxima, vidaAtual, estaDefendendo);
 		setRecursoAtual(recursoAtual);
 		setRecursoMaximo(recursoMaximo);
-		setMochila(mochila);
+		setInventario(mochila);
 	}
 
 	// ----------------------------------------
@@ -43,26 +43,33 @@ public abstract class Personagem extends Entidade {
 		this.recursoMaximo = recursoMaximo;
 	}
 
-	public Inventario getMochila() {
+	public Inventario getInventario() {
 		return inventario;
 	}
 
-	public void setMochila(Inventario inventario) throws ObjetoNulo {
+	public void setInventario(Inventario inventario) throws ObjetoNulo {
 		if (inventario == null) {
-			throw new ObjetoNulo("Mochila");
+			throw new ObjetoNulo("O inventário");
 		}
 		this.inventario = inventario;
 	}
 
 	// --------------------------------------
 
-	public void abrirInventario() {
-		// TODO fazer metodo.
+	public int abrirInventario() {
+		return this.inventario.getQtdPocoes();
 	}
 
 	public String tomarPocao() {
-		// TODO fazer metodo.
-		return "tomou poção"; // escrevi qualquer coisa
+		boolean pocaoConsumida = this.inventario.consumirPocao();
+		if (pocaoConsumida) {
+			this.receberCura(20);
+			return this.getNome() + " tomou uma poção e recebeu 20 de cura !!!";
+		}
+		else {
+			return this.getNome() + " Não conseguiu tomar a poção !!!";
+		}
+		
 	}
 
 	public abstract String usarHabilidade();
