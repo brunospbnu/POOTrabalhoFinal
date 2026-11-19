@@ -15,4 +15,9 @@ public class Goblin extends Inimigo {
 		return "O(a) inimigo: " + this.getNome() + " usou habilidade: Evasiva malandra";
 	}
 
+	@Override
+	public int pontosRecompensa() {
+		return 250;
+	}
+
 }

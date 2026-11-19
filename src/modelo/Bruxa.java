@@ -15,4 +15,9 @@ public class Bruxa extends Inimigo {
 		return "O(a) inimigo: " + this.getNome() + " usou habilidade: Cura do Submundo";
 	}
 
+	@Override
+	public int pontosRecompensa() {
+		return 400;
+	}
+
 }

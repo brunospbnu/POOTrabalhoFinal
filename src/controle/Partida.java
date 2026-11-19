@@ -3,6 +3,7 @@ package controle;
 import java.util.ArrayList;
 import java.util.List;
 
+import excecoes.ValorMenorQue0;
 import modelo.*;
 
 public class Partida {
@@ -24,7 +25,7 @@ public class Partida {
 		// 3. Instancia o herói escolhido usando polimorfismo
 		switch (opcaoDeClasse) {
 		case 0:
-			personagemPartida = new Guerreiro ("Guerreiro", 25, 150, 150, 30, 30,false, null);
+			personagemPartida = new Guerreiro("Guerreiro", 25, 150, 150, 30, 30, false, null);
 			break;
 		case 1:
 			personagemPartida = new Mago("Mago", 15, 80, 80, 100, 100, false, null);
@@ -143,9 +144,33 @@ public class Partida {
 
 	}
 
-	public void calcularPontuacaoFinal() {
+// Deixei tudo comentado e explicado a maneira que esse método funciona. Obs.: Podemos sim adicionar mais coisas, isso aqui ainda é um teste
+	public void calcularPontuacaoFinal() throws ValorMenorQue0 {
+		// 1 - Vamos supor no momento que o jogador ganhe 200 pontos a cada vitória
+		if (this.statusPartida == StatusPartida.VITORIA) {
+			int pontosVitoria = 200;
+			// 2 - Vamos supor que também é possível ganhar pontos pelo número de poções que
+			// sobraram no inventário
+			// 3 - Vai pegar as poções que restaram no inventário
+			int pocoesRestantes = this.personagemPartida.getInventario().getQtdPocoes();
 
-		// TODO fazer metodo.
+			// 4- bônus por poção, deixei como 25, mas podemos alterar depois
+			int bonusPocoes = pocoesRestantes * 25;
+
+			// 5 - vai pegar os pontos por derrotar um inimigo em específico
+			int pontosInimigo = this.inimigoAtual.pontosRecompensa();
+
+			// 6 - Soma total, incluindo os pontos pela vitória, poções e pontos do inimigo
+			// que foi derrotado
+			int pontuacaoTotal = pontosVitoria + bonusPocoes + pontosInimigo;
+
+			// 7 - Atribuindo o total de pontos ao jogador
+			this.jogadorPartida.addPontuacao(pontuacaoTotal);
+
+		} else {
+			// 8 - se perder não vai ganhar pontos por vitória
+			this.jogadorPartida.setPontuacao(0);
+		}
 
 	}
 

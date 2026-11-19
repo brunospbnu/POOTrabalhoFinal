@@ -15,4 +15,9 @@ public class Esqueleto extends Inimigo {
 		return "O(a) inimigo: " + this.getNome() + " usou habilidade: Retorno dos Mortos";
 	}
 
+	@Override
+	public int pontosRecompensa() {
+		return 300;
+	}
+
 }

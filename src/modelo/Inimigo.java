@@ -13,4 +13,6 @@ public abstract class Inimigo extends Entidade {
 
 	public abstract String usarHabilidade();
 
+	public abstract int pontosRecompensa();
+
 }
