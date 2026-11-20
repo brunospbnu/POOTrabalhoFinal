@@ -158,7 +158,13 @@ public class Partida {
 			int bonusPocoes = pocoesRestantes * 25;
 
 			// 5 - vai pegar os pontos por derrotar um inimigo em específico
-			int pontosInimigo = this.inimigoAtual.pontosRecompensa();
+			int pontosInimigo = 0;
+					
+			// Colocado um "for" para poder somar os pontos de todos os inimigos derrotados, evitando que some somente do último.
+				for (Inimigo inimigoAtual : inimigos) {
+					pontosInimigo += inimigoAtual.pontosRecompensa();
+					
+				}
 
 			// 6 - Soma total, incluindo os pontos pela vitória, poções e pontos do inimigo
 			// que foi derrotado
