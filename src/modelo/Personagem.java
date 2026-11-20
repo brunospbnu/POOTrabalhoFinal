@@ -64,14 +64,14 @@ public abstract class Personagem extends Entidade {
 		boolean pocaoConsumida = this.inventario.consumirPocao();
 		if (pocaoConsumida) {
 			this.receberCura(20);
-			return this.getNome() + " tomou uma poção e recebeu 20 de cura !!!";
+			return this.getNome() + " tomou uma poção !!!";
 		}
 		else {
-			return this.getNome() + " Não conseguiu tomar a poção !!!";
+			return this.getNome() + " não conseguiu tomar a poção !!!";
 		}
 		
 	}
-
-	public abstract String usarHabilidade();
+	
+	public abstract String usarHabilidade(Inimigo alvo);
 
 }
