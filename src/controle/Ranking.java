@@ -1,15 +1,19 @@
 package controle;
 
 import modelo.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class Ranking {
-	
+
 	private List<Jogador> jogadores;
 	private String caminhoArquivo;
-	
+
 	public Ranking() {
-		
+
+		jogadores = new ArrayList<Jogador>();
+
 	}
 
 	public List<Jogador> getJogadores() {
@@ -27,26 +31,45 @@ public class Ranking {
 	public void setCaminhoArquivo(String caminhoArquivo) {
 		this.caminhoArquivo = caminhoArquivo;
 	}
-	
+
 	public void addPontuacaoJogador(Jogador jogadorInformado, String resultado) {
-		
-		//TODO fazer método.
+		if (jogadorInformado != null) {
+			jogadores.add(jogadorInformado);
+			ordenarRanking();
+		}
+
 	}
-	
+
+	// aqui foi mais difícil do que eu pensei que seria, mas consiste em utilizar um
+	// método bolha para ordenar os jogadores por pontuação
 	public void ordenarRanking() {
-		
-		//TODO fazer método.
+
+		int n = jogadores.size();
+
+		for (int i = 0; i < n - 1; i++) {
+			for (int j = 0; j < n - i - 1; j++) {
+
+				Jogador atual = jogadores.get(j);
+				Jogador proximo = jogadores.get(j + 1);
+
+				if (atual.getPontuacao() < proximo.getPontuacao()) {
+					jogadores.set(j, proximo);
+					jogadores.set(j + 1, atual);
+				}
+			}
+		}
+
 	}
-	
+
 	public void salvarNoArquivo() {
-		
-		//TODO fazer método.
+
+		// TODO fazer método.
 	}
-	
+
 	public void carregarDoArquivo() {
-		
-		//TODO fazer método.
-		
+
+		// TODO fazer método.
+
 	}
-	
+
 }
