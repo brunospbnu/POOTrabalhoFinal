@@ -3,7 +3,9 @@ package controle;
 import java.util.ArrayList;
 import java.util.List;
 
+import excecoes.ObjetoNulo;
 import excecoes.ValorMenorQue0;
+import excecoes.ValorMenorQue1;
 import modelo.*;
 
 public class Partida {
@@ -17,7 +19,7 @@ public class Partida {
 	private StatusPartida statusPartida;
 	private List<String> historicoDeAcoes;
 
-	public Partida(String nmJogador, int opcaoDeClasse) throws IllegalArgumentException {
+	public Partida(String nmJogador, int opcaoDeClasse) throws IllegalArgumentException, ObjetoNulo, ValorMenorQue1 {
 		// 1. Instancia o jogador com o nome recebido do Menu
 		jogadorPartida = new Jogador(nmJogador, 0);
 		// 2. Instancia a lista de histórico
@@ -49,7 +51,10 @@ public class Partida {
 		return jogadorPartida;
 	}
 
-	public void setJogadorPartida(Jogador jogadorPartida) {
+	public void setJogadorPartida(Jogador jogadorPartida) throws ObjetoNulo {
+		if (jogadorPartida == null) {
+			throw new ObjetoNulo("O jogador");
+		}
 		this.jogadorPartida = jogadorPartida;
 	}
 
@@ -57,7 +62,10 @@ public class Partida {
 		return personagemPartida;
 	}
 
-	public void setPersonagemPartida(Personagem personagemPartida) {
+	public void setPersonagemPartida(Personagem personagemPartida) throws ObjetoNulo {
+		if (personagemPartida == null) {
+			throw new ObjetoNulo("O personagem");
+		}
 		this.personagemPartida = personagemPartida;
 	}
 
@@ -65,7 +73,10 @@ public class Partida {
 		return inimigos;
 	}
 
-	public void setInimigos(List<Inimigo> inimigos) {
+	public void setInimigos(List<Inimigo> inimigos) throws ObjetoNulo{
+		if (inimigos == null) {
+			throw new ObjetoNulo("A lista de inimigos");
+		}
 		this.inimigos = inimigos;
 	}
 
@@ -73,7 +84,10 @@ public class Partida {
 		return inimigoAtual;
 	}
 
-	public void setInimigoAtual(Inimigo inimigoAtual) {
+	public void setInimigoAtual(Inimigo inimigoAtual) throws ObjetoNulo {
+		if (inimigoAtual == null) {
+			throw new ObjetoNulo("O inimigo atual");
+		}
 		this.inimigoAtual = inimigoAtual;
 	}
 
@@ -81,7 +95,10 @@ public class Partida {
 		return encontroAtual;
 	}
 
-	public void setEncontroAtual(int encontroAtual) {
+	public void setEncontroAtual(int encontroAtual) throws ValorMenorQue1 {
+		if (encontroAtual < 1) {
+			throw new ValorMenorQue1("O encontro atual");
+		}
 		this.encontroAtual = encontroAtual;
 	}
 
@@ -89,7 +106,10 @@ public class Partida {
 		return historicoDeAcoes;
 	}
 
-	public void setHistoricoDeAcoes(List<String> historicoDeAcoes) {
+	public void setHistoricoDeAcoes(List<String> historicoDeAcoes) throws ObjetoNulo {
+		if (historicoDeAcoes == null) {
+			throw new ObjetoNulo("O histórico de ações");
+		}
 		this.historicoDeAcoes = historicoDeAcoes;
 	}
 
@@ -97,7 +117,10 @@ public class Partida {
 		return turnoAtual;
 	}
 
-	public void setTurnoAtual(int turnoAtual) {
+	public void setTurnoAtual(int turnoAtual) throws ValorMenorQue1 {
+		if (turnoAtual < 1) {
+			throw new ValorMenorQue1("O turno atual");
+		}
 		this.turnoAtual = turnoAtual;
 	}
 
@@ -124,9 +147,44 @@ public class Partida {
 		return lista;
 	}
 
-	public void executarAcaoTurno() {
+	public String executarAcaoTurno(int acaoEscolhida) throws IllegalArgumentException, ObjetoNulo, ValorMenorQue1 {
+		
+		String textoDeRetorno = "";
+		
+		// O metodo visão vai fornecer um int correspondente a ação escolhida.
+		
+		switch (acaoEscolhida) {
+		
+		case 1: //atacar
+			textoDeRetorno += personagemPartida.atacar(inimigoAtual);
+			break;
+			
+		case 2: //defender
+			textoDeRetorno += personagemPartida.defender();
+			break;
 
-		// TODO fazer metodo.
+		case 3: //tomar pocao
+			textoDeRetorno += personagemPartida.tomarPocao();
+			break;
+			
+		case 4: //usar habilidade
+			textoDeRetorno += personagemPartida.usarHabilidade(inimigoAtual);
+			break;
+
+		default:
+			throw new IllegalArgumentException("Ação inválida !!");
+		}
+		
+		if (inimigoAtual.getVidaAtual() == 0) {
+			textoDeRetorno += "Derrotou o(a) " + inimigoAtual.getNome();
+			avancarEncontro();
+		}
+		else {
+			inimigoAtual.acaoAutomatica();
+			turnoAtual ++;
+		}
+		
+		return textoDeRetorno;
 	}
 
 	public void avancarEncontro() {
