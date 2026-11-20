@@ -2,6 +2,13 @@ package controle;
 
 import modelo.*;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,9 +18,8 @@ public class Ranking {
 	private String caminhoArquivo;
 
 	public Ranking() {
-
 		jogadores = new ArrayList<Jogador>();
-
+		carregarDoArquivo();
 	}
 
 	public List<Jogador> getJogadores() {
@@ -61,9 +67,22 @@ public class Ranking {
 
 	}
 
-	public void salvarNoArquivo() {
+	public void salvarNoArquivo() throws IOException {
+	    
+		/*
+		Ainda em desenvolvimento.
+		 
+		Path arquivoDestino = Paths.get(caminhoArquivo, "ranking.txt");
+	    File arquivoRanking = arquivoDestino.toFile();
 
-		// TODO fazer método.
+	    try (FileOutputStream fos = new FileOutputStream(arquivoRanking);
+	         PrintWriter arquivoTexto = new PrintWriter(new OutputStreamWriter(fos))) {
+
+	        for (Jogador jogador : jogadores) {
+	            arquivoTexto.println("Jogador: " + jogador.getNomeJogador() + " / Pontuação: " + jogador.getPontuacao());
+	        }
+	    }
+	    */
 	}
 
 	public void carregarDoArquivo() {

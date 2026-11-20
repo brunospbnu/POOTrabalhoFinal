@@ -5,23 +5,23 @@ import excecoes.ValorMenorQue0;
 
 public class Jogador {
 	
-	private String nomeJgador;
+	private String nomeJogador;
 	private int pontuacao;
 	
 	public Jogador(String nomeJogador, int pontuacao) throws NomeInvalidoException, ValorMenorQue0 {
-		setNomeJgador(nomeJogador);
+		setNomeJogador(nomeJogador);
 		setPontuacao(pontuacao);
 	}
 
-	public String getNomeJgador() {
-		return nomeJgador;
+	public String getNomeJogador() {
+		return nomeJogador;
 	}
 
-	public void setNomeJgador(String nomeJgador) throws NomeInvalidoException {
+	public void setNomeJogador(String nomeJgador) throws NomeInvalidoException {
 		if (nomeJgador.length() <3) {
 			throw new NomeInvalidoException("O nome do Jogador");
 		}
-		this.nomeJgador = nomeJgador;
+		this.nomeJogador = nomeJgador;
 	}
 
 	public int getPontuacao() {
