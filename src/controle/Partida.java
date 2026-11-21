@@ -180,7 +180,7 @@ public class Partida {
 			avancarEncontro();
 		}
 		else {
-			inimigoAtual.acaoAutomatica();
+			inimigoAtual.acaoAutomatica(getPersonagemPartida(), turnoAtual);
 			turnoAtual ++;
 		}
 		
