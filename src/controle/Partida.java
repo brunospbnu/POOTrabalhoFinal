@@ -218,21 +218,21 @@ public class Partida {
 			// 5 - vai pegar os pontos por derrotar um inimigo em específico
 			int pontosInimigo = 0;
 					
-			// Colocado um "for" para poder somar os pontos de todos os inimigos derrotados, evitando que some somente do último.
+			// 6- Colocado um "for" para poder somar os pontos de todos os inimigos derrotados, evitando que some somente do último.
 				for (Inimigo inimigoAtual : inimigos) {
 					pontosInimigo += inimigoAtual.pontosRecompensa();
 					
 				}
 
-			// 6 - Soma total, incluindo os pontos pela vitória, poções e pontos do inimigo
+			// 7 - Soma total, incluindo os pontos pela vitória, poções e pontos do inimigo
 			// que foi derrotado
 			int pontuacaoTotal = pontosVitoria + bonusPocoes + pontosInimigo;
 
-			// 7 - Atribuindo o total de pontos ao jogador
+			// 8 - Atribuindo o total de pontos ao jogador
 			this.jogadorPartida.addPontuacao(pontuacaoTotal);
 
 		} else {
-			// 8 - se perder não vai ganhar pontos por vitória
+			// 9 - se perder não vai ganhar pontos por vitória
 			this.jogadorPartida.setPontuacao(0);
 		}
 

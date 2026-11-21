@@ -76,7 +76,7 @@ public class Menu extends JFrame {
 		btnNovaPartida.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CardLayout cl = (CardLayout) (contentPane.getLayout());
-				cl.show(contentPane, "novaPartida");
+				cl.show(contentPane, "inserirNome");
 			}
 		});
 		btnNovaPartida.setBounds(10, 113, 230, 110);
@@ -125,6 +125,11 @@ public class Menu extends JFrame {
 		JLabel imagemDeFundo = new JLabel("");
 		imagemDeFundo.setBounds(0, 0, 709, 463);
 		telaInicial.add(imagemDeFundo);
+
+		// Agora o Menu vai para o painel de inserir nome e depois vai para a seleção de
+		// personagens
+		JPanel inserirNome = new InserirNome();
+		contentPane.add(inserirNome, "inserirNome");
 
 		JPanel novaPartida = new NovaPartida();
 		contentPane.add(novaPartida, "novaPartida");
