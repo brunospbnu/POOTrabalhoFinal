@@ -5,12 +5,20 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
+import excecoes.NomeInvalidoException;
+import modelo.Jogador;
 
 public class InserirNome extends JPanel {
 
@@ -23,30 +31,17 @@ public class InserirNome extends JPanel {
 	public InserirNome() {
 		setLayout(null);
 
-		// 1. Imagem da Placa "Informe seu nome"
-		JLabel inserirNome = new JLabel("");
-		ImageIcon imgNome = new ImageIcon(InserirNome.class.getResource("/Imagens/ImagemInserirNome.png"));
-		// Ajustado para o tamanho base real da placa (ex: 450x160 em vez de 44x12)
-		Image redimensionarNome = imgNome.getImage().getScaledInstance(450, 160, Image.SCALE_SMOOTH);
-		inserirNome.setIcon(new ImageIcon(redimensionarNome));
-		inserirNome.setBounds(134, 120, 450, 160);
-		add(inserirNome);
+		// 1. Rótulo de Erro
+		JLabel erro = new JLabel("");
+		erro.setBounds(180, 248, 358, 25);
+		erro.setFont(new Font("Tahoma", Font.BOLD, 12));
+		erro.setForeground(new Color(255, 90, 90));
+		erro.setHorizontalAlignment(SwingConstants.CENTER);
+		add(erro);
 
-		// 2. Campo de Texto
-		txtEscreverONome = new JTextField();
-		txtEscreverONome.setText("Escrever o nome aqui");
-		txtEscreverONome.setBounds(180, 200, 358, 45); // Posicionado no meio da placa
-		txtEscreverONome.setFont(new Font("Tahoma", Font.BOLD, 18));
-		txtEscreverONome.setHorizontalAlignment(SwingConstants.CENTER);
-		txtEscreverONome.setOpaque(false);
-		txtEscreverONome.setBorder(null);
-		txtEscreverONome.setForeground(Color.YELLOW);
-		add(txtEscreverONome);
-		txtEscreverONome.setColumns(10);
-
-		// 3. Botão Continuar
+		// 2. Botão Continuar
 		JButton continuar = new JButton("");
-		// IMPORTANTE: Adicionada a extensão .png no caminho da imagem
+
 		ImageIcon imgContinuar = new ImageIcon(InserirNome.class.getResource("/Imagens/BotãoContinuar.png"));
 		Image redimensionarContinuar = imgContinuar.getImage().getScaledInstance(145, 40, Image.SCALE_SMOOTH);
 
@@ -55,30 +50,145 @@ public class InserirNome extends JPanel {
 		continuar.setFocusPainted(false);
 
 		continuar.setIcon(new ImageIcon(redimensionarContinuar));
-		continuar.setBounds(286, 310, 145, 40);
+		continuar.setBounds(550, 370, 180, 50);
+		continuar.setEnabled(false);
 		add(continuar);
 
 		// Ação do Botão
 		continuar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Pega o texto digitado e guarda na variável
-				nomeJogador = txtEscreverONome.getText();
+				String nomeDigitado = txtEscreverONome.getText().trim();
 
 				// Validação simples caso esteja vazio
-				if (nomeJogador.trim().isEmpty() || nomeJogador.equals("Escrever o nome aqui")) {
-					nomeJogador = "Aventureiro";
-				}
+				// if (nomeDigitado.equals("Escrever o nome aqui")) {
+				// nomeDigitado = "Aventureiro";
+				// }
 
-				// Transição com CardLayout para a próxima tela
-				java.awt.Container containerPai = InserirNome.this.getParent();
-				if (containerPai != null && containerPai.getLayout() instanceof java.awt.CardLayout) {
-					java.awt.CardLayout cl = (java.awt.CardLayout) containerPai.getLayout();
-					cl.show(containerPai, "novaPartida");
+				try {
+					Jogador jogadorTemp = new Jogador(nomeDigitado, 0);
+					nomeJogador = jogadorTemp.getNomeJogador();
+					erro.setText("");
+
+					// Transição com CardLayout para a próxima tela
+					java.awt.Container containerPai = InserirNome.this.getParent();
+					if (containerPai != null && containerPai.getLayout() instanceof java.awt.CardLayout) {
+						java.awt.CardLayout cl = (java.awt.CardLayout) containerPai.getLayout();
+						cl.show(containerPai, "novaPartida");
+					}
+				} catch (NomeInvalidoException ex) {
+					erro.setText(ex.getMessage());
+					continuar.setEnabled(false);
+				}
+			}
+
+		});
+
+		// 3. Imagem da Placa "Informe seu nome"
+		JLabel inserirNome = new JLabel("");
+		ImageIcon imgNome = new ImageIcon(InserirNome.class.getResource("/Imagens/ImagemInserirNome.png"));
+		// Ajustado para o tamanho base real da placa (ex: 450x160 em vez de 44x12)
+		Image redimensionarNome = imgNome.getImage().getScaledInstance(450, 160, Image.SCALE_SMOOTH);
+		inserirNome.setIcon(new ImageIcon(redimensionarNome));
+		inserirNome.setBounds(134, 120, 450, 160);
+		add(inserirNome);
+
+		// 4. Campo de Texto
+		txtEscreverONome = new JTextField() {
+			@Override
+			protected void paintComponent(java.awt.Graphics g) {
+				super.paintComponent(g);
+			}
+
+			@Override
+			public boolean isOpaque() {
+				return false;
+			}
+		};
+		txtEscreverONome.setText("Escrever o nome aqui");
+		txtEscreverONome.setBounds(192, 206, 335, 38); // Posicionado no meio da placa
+		txtEscreverONome.setFont(new Font("Tahoma", Font.BOLD, 16));
+		txtEscreverONome.setHorizontalAlignment(SwingConstants.CENTER);
+		txtEscreverONome.setOpaque(true);
+		txtEscreverONome.setBackground(new Color(45, 20, 10));
+		txtEscreverONome.setForeground(Color.YELLOW);
+		txtEscreverONome.setCaretColor(Color.WHITE);
+		txtEscreverONome.setBorder(null);
+
+		txtEscreverONome.addFocusListener(new FocusListener() {
+
+			public void focusGained(FocusEvent e) {
+				if (txtEscreverONome.getText().equals("Escrever o nome aqui")) {
+					txtEscreverONome.setText("");
+					erro.setText("");
+				}
+			}
+
+			public void focusLost(FocusEvent e) {
+				if (txtEscreverONome.getText().trim().isEmpty()) {
+					txtEscreverONome.setText("Escrever o nome aqui");
+					continuar.setEnabled(false);
 				}
 			}
 		});
 
-		// 4. Imagem de Fundo
+		// Isso aqui vigia o texto em tempo real
+		txtEscreverONome.getDocument().addDocumentListener(new DocumentListener() {
+
+			private void checarTexto() {
+				String texto = txtEscreverONome.getText().trim();
+
+				if (texto.isEmpty() || texto.equals("Escrever o nome aqui") || texto.length() < 3) {
+					continuar.setEnabled(false);
+				} else {
+					continuar.setEnabled(true);
+					erro.setText("");
+				}
+			}
+
+			public void insertUpdate(DocumentEvent e) {
+				checarTexto();
+			}
+
+			public void removeUpdate(DocumentEvent e) {
+				checarTexto();
+			}
+
+			public void changedUpdate(DocumentEvent e) {
+				checarTexto();
+			}
+		});
+
+		add(txtEscreverONome);
+		// txtEscreverONome.setColumns(10); esquece isso por enquanto
+
+		// 5. Botão voltar
+		JButton voltar = new JButton("");
+		ImageIcon imagemV = new ImageIcon(NovaPartida.class.getResource("/Imagens/BotãoVoltar.png"));
+
+		Image redimensionarImagemV = imagemV.getImage().getScaledInstance(145, 40, Image.SCALE_SMOOTH);
+
+		voltar.setContentAreaFilled(false);
+		voltar.setBorderPainted(false);
+		voltar.setFocusPainted(false);
+
+		voltar.setIcon(new ImageIcon(redimensionarImagemV));
+		voltar.setBounds(37, 370, 145, 40);
+		add(voltar);
+
+		voltar.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent e) {
+
+				java.awt.Container containerPai = InserirNome.this.getParent();
+				if (containerPai != null && containerPai.getLayout() instanceof java.awt.CardLayout) {
+					java.awt.CardLayout cl = (java.awt.CardLayout) containerPai.getLayout();
+
+					cl.show(containerPai, "telaInicial");
+				}
+			}
+		});
+
+		// 6. Imagem de Fundo
 		JLabel imagemFundo = new JLabel("");
 		imagemFundo.setBounds(0, 0, 717, 471);
 		add(imagemFundo);
@@ -86,7 +196,7 @@ public class InserirNome extends JPanel {
 		ImageIcon iconeOriginal = new ImageIcon(Menu.class.getResource("/Imagens/SomenteFundo.jpg"));
 		Image imagemOriginal = iconeOriginal.getImage();
 
-		// 5. Listener de Redimensionamento (Estrutura corrigida)
+		// 7. Listener de Redimensionamento
 		Menu.contentPane.addComponentListener(new java.awt.event.ComponentAdapter() {
 			@Override
 			public void componentResized(java.awt.event.ComponentEvent e) {
@@ -118,16 +228,24 @@ public class InserirNome extends JPanel {
 					inserirNome.setIcon(new ImageIcon(imgPlacaAjustada));
 
 					// Redimensiona e reposiciona o campo de texto
-					txtEscreverONome.setBounds((int) (180 * proporcaoX), (int) (200 * proporcaoY),
-							(int) (358 * proporcaoX), (int) (45 * proporcaoY));
+					txtEscreverONome.setBounds((int) (192 * proporcaoX), (int) (206 * proporcaoY),
+							(int) (335 * proporcaoX), (int) (38 * proporcaoY));
 
 					// Redimensiona e reposiciona o botão continuar
 					int larguraBotao = (int) (145 * proporcaoX);
 					int alturaBotao = (int) (40 * proporcaoY);
-					continuar.setBounds((int) (286 * proporcaoX), (int) (310 * proporcaoY), larguraBotao, alturaBotao);
+					continuar.setBounds((int) (550 * proporcaoX), (int) (370 * proporcaoY), larguraBotao, alturaBotao);
 					Image imgAvancarAjustada = imgContinuar.getImage().getScaledInstance(Math.max(1, larguraBotao),
 							Math.max(1, alturaBotao), Image.SCALE_SMOOTH);
 					continuar.setIcon(new ImageIcon(imgAvancarAjustada));
+
+					// Voltar
+					int larguraVoltar = (int) (145 * proporcaoX);
+					int alturaVoltar = (int) (40 * proporcaoY);
+					voltar.setBounds((int) (37 * proporcaoX), (int) (370 * proporcaoY), larguraVoltar, alturaVoltar);
+					Image imgVoltar = imagemV.getImage().getScaledInstance(Math.max(1, larguraVoltar),
+							Math.max(1, alturaVoltar), Image.SCALE_SMOOTH);
+					voltar.setIcon(new ImageIcon(imgVoltar));
 				}
 			}
 		});
