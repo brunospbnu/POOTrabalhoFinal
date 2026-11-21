@@ -23,12 +23,12 @@ public class NovaPartida extends JPanel {
 		JLabel tituloDoMenu = new JLabel("");
 		ImageIcon legenda = new ImageIcon(NovaPartida.class.getResource("/Imagens/LegendaEscolherClasse.png"));
 
-		Image redimensionarLegenda = legenda.getImage().getScaledInstance(352, 48, Image.SCALE_SMOOTH);
+		Image redimensionarLegenda = legenda.getImage().getScaledInstance(352, 80, Image.SCALE_SMOOTH);
 
 		tituloDoMenu.setIcon(new ImageIcon(redimensionarLegenda));
 		tituloDoMenu.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		tituloDoMenu.setHorizontalAlignment(SwingConstants.CENTER);
-		tituloDoMenu.setBounds(202, 18, 352, 48);
+		tituloDoMenu.setBounds(202, 18, 352, 80);
 		add(tituloDoMenu);
 
 		// Botão de escolha do cavaleiro
@@ -175,7 +175,7 @@ public class NovaPartida extends JPanel {
 					// Tive que fazer algumas mudanças aqui para ficar bem redimensionado com as
 					// imagens. As medidas antigas estão logo acima
 					tituloDoMenu.setBounds((int) (180 * proporcaoX), (int) (18 * proporcaoY), (int) (352 * proporcaoX),
-							(int) (48 * proporcaoY));
+							(int) (80 * proporcaoY));
 
 					// É necessário colocar as variáveis dos PNGs aqui também, se não ao expandir o
 					// tamanho da tela elas acabam mantendo o tamanho de quando o painel está
@@ -183,7 +183,7 @@ public class NovaPartida extends JPanel {
 
 					// Legenda
 					int larguraLegenda = (int) (352 * proporcaoX);
-					int alturaLegenda = (int) (48 * proporcaoY);
+					int alturaLegenda = (int) (80 * proporcaoY);
 					tituloDoMenu.setBounds((int) (180 * proporcaoX), (int) (18 * proporcaoY), larguraLegenda,
 							alturaLegenda);
 					Image imgLegendaAjustada = legenda.getImage().getScaledInstance(Math.max(1, larguraLegenda),

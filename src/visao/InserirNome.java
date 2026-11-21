@@ -24,8 +24,7 @@ public class InserirNome extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JTextField txtEscreverONome;
-
-	// Variável estática para guardar o nome e usá-lo nas outras classes
+	// Variável para guardar o nome.
 	public static String nomeJogador = "";
 
 	public InserirNome() {
@@ -89,77 +88,77 @@ public class InserirNome extends JPanel {
 		ImageIcon imgNome = new ImageIcon(InserirNome.class.getResource("/Imagens/ImagemInserirNome.png"));
 		// Ajustado para o tamanho base real da placa (ex: 450x160 em vez de 44x12)
 		Image redimensionarNome = imgNome.getImage().getScaledInstance(450, 160, Image.SCALE_SMOOTH);
+		
+				// 4. Campo de Texto
+				txtEscreverONome = new JTextField() {
+					@Override
+					protected void paintComponent(java.awt.Graphics g) {
+						super.paintComponent(g);
+					}
+		
+					@Override
+					public boolean isOpaque() {
+						return false;
+					}
+				};
+				txtEscreverONome.setText("Escrever o nome aqui");
+				txtEscreverONome.setBounds(218, 195, 322, 25); // Posicionado no meio da placa
+				txtEscreverONome.setFont(new Font("Tahoma", Font.BOLD, 16));
+				txtEscreverONome.setHorizontalAlignment(SwingConstants.CENTER);
+				txtEscreverONome.setOpaque(true);
+				txtEscreverONome.setBackground(new Color(45, 20, 10));
+				txtEscreverONome.setForeground(Color.YELLOW);
+				txtEscreverONome.setCaretColor(Color.WHITE);
+				txtEscreverONome.setBorder(null);
+				
+						txtEscreverONome.addFocusListener(new FocusListener() {
+				
+							public void focusGained(FocusEvent e) {
+								if (txtEscreverONome.getText().equals("Escrever o nome aqui")) {
+									txtEscreverONome.setText("");
+									erro.setText("");
+								}
+							}
+				
+							public void focusLost(FocusEvent e) {
+								if (txtEscreverONome.getText().trim().isEmpty()) {
+									txtEscreverONome.setText("Escrever o nome aqui");
+									continuar.setEnabled(false);
+								}
+							}
+						});
+						
+								// Isso aqui vigia o texto em tempo real
+								txtEscreverONome.getDocument().addDocumentListener(new DocumentListener() {
+						
+									private void checarTexto() {
+										String texto = txtEscreverONome.getText().trim();
+						
+										if (texto.isEmpty() || texto.equals("Escrever o nome aqui") || texto.length() < 3) {
+											continuar.setEnabled(false);
+										} else {
+											continuar.setEnabled(true);
+											erro.setText("");
+										}
+									}
+						
+									public void insertUpdate(DocumentEvent e) {
+										checarTexto();
+									}
+						
+									public void removeUpdate(DocumentEvent e) {
+										checarTexto();
+									}
+						
+									public void changedUpdate(DocumentEvent e) {
+										checarTexto();
+									}
+								});
+								
+										add(txtEscreverONome);
 		inserirNome.setIcon(new ImageIcon(redimensionarNome));
 		inserirNome.setBounds(134, 120, 450, 160);
 		add(inserirNome);
-
-		// 4. Campo de Texto
-		txtEscreverONome = new JTextField() {
-			@Override
-			protected void paintComponent(java.awt.Graphics g) {
-				super.paintComponent(g);
-			}
-
-			@Override
-			public boolean isOpaque() {
-				return false;
-			}
-		};
-		txtEscreverONome.setText("Escrever o nome aqui");
-		txtEscreverONome.setBounds(192, 206, 335, 38); // Posicionado no meio da placa
-		txtEscreverONome.setFont(new Font("Tahoma", Font.BOLD, 16));
-		txtEscreverONome.setHorizontalAlignment(SwingConstants.CENTER);
-		txtEscreverONome.setOpaque(true);
-		txtEscreverONome.setBackground(new Color(45, 20, 10));
-		txtEscreverONome.setForeground(Color.YELLOW);
-		txtEscreverONome.setCaretColor(Color.WHITE);
-		txtEscreverONome.setBorder(null);
-
-		txtEscreverONome.addFocusListener(new FocusListener() {
-
-			public void focusGained(FocusEvent e) {
-				if (txtEscreverONome.getText().equals("Escrever o nome aqui")) {
-					txtEscreverONome.setText("");
-					erro.setText("");
-				}
-			}
-
-			public void focusLost(FocusEvent e) {
-				if (txtEscreverONome.getText().trim().isEmpty()) {
-					txtEscreverONome.setText("Escrever o nome aqui");
-					continuar.setEnabled(false);
-				}
-			}
-		});
-
-		// Isso aqui vigia o texto em tempo real
-		txtEscreverONome.getDocument().addDocumentListener(new DocumentListener() {
-
-			private void checarTexto() {
-				String texto = txtEscreverONome.getText().trim();
-
-				if (texto.isEmpty() || texto.equals("Escrever o nome aqui") || texto.length() < 3) {
-					continuar.setEnabled(false);
-				} else {
-					continuar.setEnabled(true);
-					erro.setText("");
-				}
-			}
-
-			public void insertUpdate(DocumentEvent e) {
-				checarTexto();
-			}
-
-			public void removeUpdate(DocumentEvent e) {
-				checarTexto();
-			}
-
-			public void changedUpdate(DocumentEvent e) {
-				checarTexto();
-			}
-		});
-
-		add(txtEscreverONome);
 		// txtEscreverONome.setColumns(10); esquece isso por enquanto
 
 		// 5. Botão voltar
@@ -228,8 +227,9 @@ public class InserirNome extends JPanel {
 					inserirNome.setIcon(new ImageIcon(imgPlacaAjustada));
 
 					// Redimensiona e reposiciona o campo de texto
-					txtEscreverONome.setBounds((int) (192 * proporcaoX), (int) (206 * proporcaoY),
-							(int) (335 * proporcaoX), (int) (38 * proporcaoY));
+					// 218, 195, 322, 25
+					txtEscreverONome.setBounds((int) (218 * proporcaoX), (int) (195 * proporcaoY),
+							(int) (322 * proporcaoX), (int) (25 * proporcaoY));
 
 					// Redimensiona e reposiciona o botão continuar
 					int larguraBotao = (int) (145 * proporcaoX);
