@@ -6,27 +6,27 @@ public abstract class Inimigo extends Entidade {
 		super(nome, danoBase, vidaMaxima, vidaAtual, estaDefendendo);
 	}
 
-	public String acaoAutomatica(Personagem personagem, int turnoAtual) {
+	public String acaoAutomatica(Personagem alvo, int turnoAtual) {
 		
 		// texto que anota o que o inimigo fez e retorna para a classe que chamou.
 		String textoDeRetorno = "";
 		
 		// verifica se o jogador ativou a defesa e o inimigo está com ela desativada
 		// , e se sim ativa também.
-		if (personagem.estaDefendendo() && !this.estaDefendendo()) {
+		if (alvo.estaDefendendo() && !this.estaDefendendo()) {
 			textoDeRetorno += super.defender();
 		}
 		// a cada 3 turnos usa a habilidade
 		else if (turnoAtual % 3 == 0) {
-			textoDeRetorno += usarHabilidade();
+			textoDeRetorno += usarHabilidade(alvo);
 		}
 		else {
-			textoDeRetorno += super.atacar(personagem);
+			textoDeRetorno += super.atacar(alvo);
 		}
 		return textoDeRetorno;
 	}
 
-	public abstract String usarHabilidade();
+	public abstract String usarHabilidade(Personagem alvo);
 
 	public abstract int pontosRecompensa();
 

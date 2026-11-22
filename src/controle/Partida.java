@@ -181,7 +181,15 @@ public class Partida {
 		}
 		else {
 			inimigoAtual.acaoAutomatica(getPersonagemPartida(), turnoAtual);
-			turnoAtual ++;
+			
+			if (personagemPartida.getVidaAtual() == 0) {
+				this.setStatusPartida(StatusPartida.DERROTA);
+				calcularPontuacaoFinal();
+			}
+			else {
+				turnoAtual ++;
+			}
+			
 		}
 		
 		return textoDeRetorno;
@@ -198,6 +206,7 @@ public class Partida {
 		} else {
 			// Se passar de 3, o jogo acabou e o jogador venceu!
 			statusPartida = StatusPartida.VITORIA;
+			calcularPontuacaoFinal();
 		}
 
 	}
@@ -223,16 +232,22 @@ public class Partida {
 					pontosInimigo += inimigoAtual.pontosRecompensa();
 					
 				}
+				
+			// 7 - pontuacao por turnos usados:
+			// Inicia com 500 e diminui 10 a cada turno adicional
+			
+			int turnosUsados = turnoAtual;
+			int pontosTurnos = 500 - (10 * turnosUsados);
 
-			// 7 - Soma total, incluindo os pontos pela vitória, poções e pontos do inimigo
-			// que foi derrotado
-			int pontuacaoTotal = pontosVitoria + bonusPocoes + pontosInimigo;
+			// 8 - Soma total, incluindo os pontos pela vitória, poções, pontos do inimigo
+			// que foi derrotado e pontos por turnos usados.
+			int pontuacaoTotal = pontosVitoria + bonusPocoes + pontosInimigo + pontosTurnos;
 
 			// 8 - Atribuindo o total de pontos ao jogador
 			this.jogadorPartida.addPontuacao(pontuacaoTotal);
 
 		} else {
-			// 9 - se perder não vai ganhar pontos por vitória
+			// 10 - se perder não vai ganhar pontos por vitória
 			this.jogadorPartida.setPontuacao(0);
 		}
 

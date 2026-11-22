@@ -7,12 +7,18 @@ public class Esqueleto extends Inimigo {
 	}
 
 	@Override
-	public String usarHabilidade() {
-		// TODO fazer metodo.
+	public String usarHabilidade(Personagem alvo) {
+		
+		String textoDeRetorno = "";
+		// nessa habilidade o esqueleto se cura e ataca o inimigo na mesma rodada.
+		
+		textoDeRetorno += receberCura(15);
+		textoDeRetorno += atacar(alvo);
 
 		// A sugestão para facilitar a programação é fazer apenas uma habilidade por
 		// heroi personagem / inimigo.
-		return "O(a) inimigo: " + this.getNome() + " usou habilidade: Retorno dos Mortos";
+		return "O(a) inimigo: " + this.getNome() + " usou habilidade: Remontagem de ossos\n "+
+				textoDeRetorno ;
 	}
 
 	@Override
