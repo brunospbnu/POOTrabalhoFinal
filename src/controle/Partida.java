@@ -25,15 +25,18 @@ public class Partida {
 		// 2. Instancia a lista de histórico
 		historicoDeAcoes = new ArrayList<>();
 		// 3. Instancia o herói escolhido usando polimorfismo
+		
+		// 3.1. quantidade de poções iniciais = 2.
+		Inventario inventarioInicial = new Inventario(2);
 		switch (opcaoDeClasse) {
 		case 0:
-			personagemPartida = new Guerreiro("Guerreiro", 25, 150, 150, 30, 30, false, null);
+			personagemPartida = new Guerreiro("Guerreiro", 25, 150, 150, 30, 30, false, inventarioInicial);
 			break;
 		case 1:
-			personagemPartida = new Mago("Mago", 15, 80, 80, 100, 100, false, null);
+			personagemPartida = new Mago("Mago", 15, 80, 80, 100, 100, false, inventarioInicial);
 			break;
 		case 2:
-			personagemPartida = new Arqueiro("Arqueiro", 20, 100, 100, 50, 50, false, null);
+			personagemPartida = new Arqueiro("Arqueiro", 20, 100, 100, 50, 50, false, inventarioInicial);
 			break;
 		default:
 			throw new IllegalArgumentException("Classe inválida");
@@ -149,38 +152,38 @@ public class Partida {
 
 	public String executarAcaoTurno(int acaoEscolhida) throws IllegalArgumentException, ObjetoNulo, ValorMenorQue1 {
 		
-		String textoDeRetorno = "";
+		String textoDeRetorno = "• Turno " + turnoAtual + ": \n";
 		
 		// O metodo visão vai fornecer um int correspondente a ação escolhida.
 		
 		switch (acaoEscolhida) {
 		
 		case 1: //atacar
-			textoDeRetorno += personagemPartida.atacar(inimigoAtual);
+			textoDeRetorno += personagemPartida.atacar(inimigoAtual) + "\n";
 			break;
 			
 		case 2: //defender
-			textoDeRetorno += personagemPartida.defender();
+			textoDeRetorno += personagemPartida.defender() + "\n";
 			break;
 
 		case 3: //tomar pocao
-			textoDeRetorno += personagemPartida.tomarPocao();
+			textoDeRetorno += personagemPartida.tomarPocao() + "\n";
 			break;
 			
 		case 4: //usar habilidade
-			textoDeRetorno += personagemPartida.usarHabilidade(inimigoAtual);
+			textoDeRetorno += personagemPartida.usarHabilidade(inimigoAtual) + "\n";
 			break;
 
 		default:
-			throw new IllegalArgumentException("Ação inválida !!");
+			throw new IllegalArgumentException("Ação inválida !! \n");
 		}
 		
 		if (inimigoAtual.getVidaAtual() == 0) {
-			textoDeRetorno += "Derrotou o(a) " + inimigoAtual.getNome();
+			textoDeRetorno += "\nDerrotou o(a) " + inimigoAtual.getNome();
 			avancarEncontro();
 		}
 		else {
-			inimigoAtual.acaoAutomatica(getPersonagemPartida(), turnoAtual);
+			textoDeRetorno += inimigoAtual.acaoAutomatica(getPersonagemPartida(), getTurnoAtual());
 			
 			if (personagemPartida.getVidaAtual() == 0) {
 				this.setStatusPartida(StatusPartida.DERROTA);

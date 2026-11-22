@@ -32,12 +32,26 @@ public class BotaoImagem extends JButton {
 	private BufferedImage recortarBordasTransparentes(BufferedImage img) {
 		int largura = img.getWidth();
 		int altura = img.getHeight();
+		boolean temTransparencia = img.getColorModel().hasAlpha();
 		int minX = largura, minY = altura, maxX = -1, maxY = -1;
 
 		for (int y = 0; y < altura; y++) {
 			for (int x = 0; x < largura; x++) {
-				int alpha = (img.getRGB(x, y) >> 24) & 0xff;
-				if (alpha > 15) {
+				int rgb = img.getRGB(x, y);
+				int alpha = (rgb >> 24) & 0xff;
+				int r = (rgb >> 16) & 0xff;
+				int g = (rgb >> 8) & 0xff;
+				int b = rgb & 0xff;
+
+				boolean ehBorda;
+				if (temTransparencia) {
+					ehBorda = (alpha <= 15);
+				} else {
+					// Para arquivos .jpg (sem transparência), recorta a margem preta
+					ehBorda = (r < 25 && g < 25 && b < 25);
+				}
+
+				if (!ehBorda) {
 					if (x < minX) minX = x;
 					if (x > maxX) maxX = x;
 					if (y < minY) minY = y;

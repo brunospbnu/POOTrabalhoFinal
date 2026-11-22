@@ -12,6 +12,9 @@ public class Mago extends Personagem {
 
 	@Override
 	public String usarHabilidade(Inimigo alvo) throws RecursoInsuficienteException {
+		
+		String textoDeRetorno = "Você usou habilidade: Bola de Fogo !!!\n";
+		
 		// verifica se tem 40 de recurso, se não tiver retorna erro, 
 		// se tiver recurso suficiente aplica a habilidade que da danoBase x 3 de dano.
 				
@@ -19,12 +22,12 @@ public class Mago extends Personagem {
 			throw new RecursoInsuficienteException();
 			}
 				
-		alvo.receberDano(this.getDanoBase() * 3);
+		textoDeRetorno += alvo.receberDano(this.getDanoBase() * 3);
 		this.setRecursoAtual(this.getRecursoAtual() - 40);
 
 		// A sugestão para facilitar a programação é fazer apenas uma habilidade por
 		// heroi personagem / inimigo.
-		return "Você usou habilidade: Bola de Fogo !!!";
+		return textoDeRetorno;
 	}
 
 }

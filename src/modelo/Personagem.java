@@ -11,12 +11,12 @@ public abstract class Personagem extends Entidade {
 	private Inventario inventario;
 
 	public Personagem(String nome, int danoBase, int vidaMaxima, int vidaAtual, int recursoAtual, int recursoMaximo,
-			boolean estaDefendendo, Inventario mochila) throws ValorMenorQue0, ValorMenorQue1, ObjetoNulo {
+			boolean estaDefendendo, Inventario inventario) throws ValorMenorQue0, ValorMenorQue1, ObjetoNulo {
 
 		super(nome, danoBase, vidaMaxima, vidaAtual, estaDefendendo);
 		setRecursoAtual(recursoAtual);
 		setRecursoMaximo(recursoMaximo);
-		setInventario(mochila);
+		setInventario(inventario);
 	}
 
 	// ----------------------------------------

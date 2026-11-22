@@ -89,7 +89,7 @@ public abstract class Entidade {
 		}
 		
 		// metodo alterado para String para retornar a informação da defesa efetuada e do dano recebido.
-		String textoDeRetorno = this.nome + " recebeu uma tentativa de ataque de: " + valor + "unidades de vida";
+		String textoDeRetorno = "";
 		
 		
 		// aplicação da defesa:
@@ -112,7 +112,7 @@ public abstract class Entidade {
 			this.vidaAtual = 0;
 		}
 		
-		textoDeRetorno += this.nome + "Recebeu " + valor + " de dano efetivo !!!";
+		textoDeRetorno += this.nome + " recebeu " + valor + " de dano efetivo !!!\n ";
 		
 		return textoDeRetorno;
 
@@ -130,7 +130,7 @@ public abstract class Entidade {
 			vidaAtual += valor;	
 		}
 		
-		String textoDeRetorno = this.nome + "recebeu cura de " + valor + " unidades de vida !!! ";
+		String textoDeRetorno = this.nome + " recebeu cura de " + valor + " unidades de vida !!! \n";
 		return textoDeRetorno;
 	}
 
@@ -138,15 +138,15 @@ public abstract class Entidade {
 		if (alvo == null) {
 			throw new ObjetoNulo("Alvo");
 		}
-		alvo.receberDano(danoBase);
-		String textoDeRetorno = this.nome + " efetuou uma tentativa de ataque de " + danoBase + " unidades de vida !!!";
+		String textoDeRetorno = this.nome + " efetuou uma tentativa de ataque de " + danoBase + " unidades de vida !!! \n";
+		textoDeRetorno += alvo.receberDano(danoBase);
 		return textoDeRetorno;
 	}
 
 	// Aqui o metodo de defesa muda o atribuo para true.
 	public String defender() {
 		this.estaDefendendo = true;
-		return this.nome + " ativou a defesa !!!";
+		return this.nome + " ativou a defesa !!!\n";
 	}
 
 }

@@ -15,6 +15,8 @@ public class Menu extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private InserirNome telaInserirNome;
+	private Partida telaPartida;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -81,11 +83,14 @@ public class Menu extends JFrame {
 		telaInicial.add(btnSairDoJogo);
 
 		// Outras telas do CardLayout recebendo a referência deste Menu
-		JPanel inserirNome = new InserirNome(this);
-		contentPane.add(inserirNome, "inserirNome");
+		telaInserirNome = new InserirNome(this);
+		contentPane.add(telaInserirNome, "inserirNome");
 
 		JPanel novaPartida = new NovaPartida(this);
 		contentPane.add(novaPartida, "novaPartida");
+
+		telaPartida = new Partida(this);
+		contentPane.add(telaPartida, "partida");
 
 		// Reposiciona e redimensiona todos os botões proporcionalmente com o mesmo tamanho
 		telaInicial.addComponentListener(new ComponentAdapter() {
@@ -113,5 +118,20 @@ public class Menu extends JFrame {
 	public void trocarTela(String nomeTela) {
 		CardLayout cl = (CardLayout) contentPane.getLayout();
 		cl.show(contentPane, nomeTela);
+		
+		
+	}
+	
+	public void iniciarPartida(int opcaoDeClasse) {
+		try {
+			String nomeJogador = telaInserirNome.getNomeJogador();
+			controle.Partida partidaControle = new controle.Partida(nomeJogador, opcaoDeClasse);
+			telaPartida.carregarPartida(partidaControle);
+			trocarTela("partida");
+		} catch (Exception ex) {
+			javax.swing.JOptionPane.showMessageDialog(this,
+					"Erro ao iniciar partida: " + ex.getMessage(),
+					"Erro", javax.swing.JOptionPane.ERROR_MESSAGE);
+		}
 	}
 }

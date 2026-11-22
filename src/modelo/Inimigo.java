@@ -23,6 +23,7 @@ public abstract class Inimigo extends Entidade {
 		else {
 			textoDeRetorno += super.atacar(alvo);
 		}
+		
 		return textoDeRetorno;
 	}
 

@@ -11,10 +11,19 @@ import javax.swing.JLabel;
 public class LabelImagem extends JLabel {
 
 	private static final long serialVersionUID = 1L;
-	private final Image imagem;
+	private Image imagem;
 
 	public LabelImagem(String caminho) {
-		this.imagem = new ImageIcon(LabelImagem.class.getResource(caminho)).getImage();
+		setImagem(caminho);
+	}
+
+	public void setImagem(String caminho) {
+		if (caminho != null && LabelImagem.class.getResource(caminho) != null) {
+			this.imagem = new ImageIcon(LabelImagem.class.getResource(caminho)).getImage();
+		} else {
+			this.imagem = null;
+		}
+		repaint();
 	}
 
 	@Override

@@ -13,6 +13,7 @@ public class Arqueiro extends Personagem {
 	@Override
 	public String usarHabilidade(Inimigo alvo) throws RecursoInsuficienteException {
 		
+		String textoDeRetorno = "Você usou habilidade: Flecha Divina !!!\n";
 		// verifica se tem 30 de recurso, se não tiver retorna erro, 
 		// se tiver recurso suficiente aplica a habilidade que da danoBase +10 pontos e ativa a defesa.
 				
@@ -20,13 +21,13 @@ public class Arqueiro extends Personagem {
 			throw new RecursoInsuficienteException();
 			}
 				
-		alvo.receberDano(this.getDanoBase() +10);
-		this.defender();
+		textoDeRetorno += alvo.receberDano(this.getDanoBase() +10);
+		textoDeRetorno += this.defender();
 		this.setRecursoAtual(this.getRecursoAtual() - 30);
 
 		// A sugestão para facilitar a programação é fazer apenas uma habilidade por
 		// heroi personagem / inimigo.
-		return "Você usou habilidade: Flecha Divina !!! ";
+		return textoDeRetorno;
 	}
 
 }

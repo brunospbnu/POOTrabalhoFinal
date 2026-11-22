@@ -37,14 +37,34 @@ public class NovaPartida extends PainelFundo {
 		BotaoImagem guerreiro = new BotaoImagem("/Imagens/BotãoEscolher.png");
 		guerreiro.setBounds(37, 268, 145, 40);
 		add(guerreiro);
+		guerreiro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				NovaPartida.this.menu.iniciarPartida(0);
+			}
+		});
+		
 
 		BotaoImagem arqueiro = new BotaoImagem("/Imagens/BotãoEscolher.png");
 		arqueiro.setBounds(286, 268, 145, 40);
 		add(arqueiro);
+		arqueiro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				NovaPartida.this.menu.iniciarPartida(2);
+			}
+		});
+		
 
 		BotaoImagem mago = new BotaoImagem("/Imagens/BotãoEscolher.png");
 		mago.setBounds(535, 268, 145, 40);
 		add(mago);
+		mago.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				NovaPartida.this.menu.iniciarPartida(1);
+			}
+		});
+		
+		
+		
 
 		// Botão de voltar
 		BotaoImagem voltar = new BotaoImagem("/Imagens/BotãoVoltar.png");

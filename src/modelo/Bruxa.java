@@ -18,7 +18,7 @@ public class Bruxa extends Inimigo {
 
 		// A sugestão para facilitar a programação é fazer apenas uma habilidade por
 		// heroi personagem / inimigo.
-		return "O(a) inimigo: " + this.getNome() + " usou habilidade: Cura do Submundo"+
+		return "O(a) inimigo: " + this.getNome() + " usou habilidade: Cura do Submundo.\n"+
 		textoDeRetorno ;
 	}
 
