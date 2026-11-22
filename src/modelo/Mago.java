@@ -30,4 +30,15 @@ public class Mago extends Personagem {
 		return textoDeRetorno;
 	}
 
+
+	@Override
+	public String getCaminhoImagem() {
+		return "/Imagens/Mago.png";
+	}
+	
+	@Override
+	public String getNomeRecurso() {
+	    return "Mana";
+	}
+
 }

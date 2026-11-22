@@ -30,5 +30,7 @@ public abstract class Inimigo extends Entidade {
 	public abstract String usarHabilidade(Personagem alvo);
 
 	public abstract int pontosRecompensa();
+	
+	public abstract String getCaminhoImagem();
 
 }

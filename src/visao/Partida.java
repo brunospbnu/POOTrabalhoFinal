@@ -19,13 +19,7 @@ import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
 import controle.StatusPartida;
-import modelo.Arqueiro;
-import modelo.Bruxa;
-import modelo.Esqueleto;
-import modelo.Goblin;
-import modelo.Guerreiro;
 import modelo.Inimigo;
-import modelo.Mago;
 import modelo.Personagem;
 
 public class Partida extends PainelFundo {
@@ -310,21 +304,24 @@ public class Partida extends PainelFundo {
 
 		// Nome, imagem e recurso específico do personagem
 		lblNomePersonagem.setText(partidaControle.getJogadorPartida().getNomeJogador() + " (" + heroi.getNome() + ")");
-
-		String nomeRecurso = "Recurso";
-		if (heroi instanceof Guerreiro) {
-			imgPersonagem.setImagem("/Imagens/Cavaleiro.png");
-			nomeRecurso = "Força";
-			barraRecursoPersonagem.setForeground(new Color(210, 120, 30));
-		} else if (heroi instanceof Mago) {
-			imgPersonagem.setImagem("/Imagens/Mago.png");
-			nomeRecurso = "Mana";
-			barraRecursoPersonagem.setForeground(new Color(40, 110, 210));
-		} else if (heroi instanceof Arqueiro) {
-			imgPersonagem.setImagem("/Imagens/Arqueira.png");
-			nomeRecurso = "Foco";
-			barraRecursoPersonagem.setForeground(new Color(150, 75, 200));
+		imgPersonagem.setImagem(heroi.getCaminhoImagem());
+		String nomeRecurso = heroi.getNomeRecurso();
+		
+		switch (nomeRecurso) {
+		case "Força":
+			barraRecursoPersonagem.setForeground(new Color(210, 120, 30)); // Laranja (Guerreiro)
+			break;
+		case "Mana":
+			barraRecursoPersonagem.setForeground(new Color(40, 110, 210)); // Azul (Mago)
+			break;
+		case "Foco":
+			barraRecursoPersonagem.setForeground(new Color(150, 75, 200)); // Roxo (Arqueiro)
+			break;
+		default:
+			barraRecursoPersonagem.setForeground(new Color(100, 100, 100)); // Cor padrão
+			break;
 		}
+		
 
 		// Barras do personagem
 		barraVidaPersonagem.setMaximum(heroi.getVidaMaxima());
@@ -343,15 +340,7 @@ public class Partida extends PainelFundo {
 		// Inimigo atual (Goblin -> Esqueleto -> Bruxa)
 		if (inimigo != null) {
 			lblNomeInimigo.setText(inimigo.getNome());
-
-			if (inimigo instanceof Goblin) {
-				imgInimigo.setImagem("/Imagens/Goblin.png");
-			} else if (inimigo instanceof Esqueleto) {
-				imgInimigo.setImagem("/Imagens/Esqueleto.png");
-			} else if (inimigo instanceof Bruxa) {
-				imgInimigo.setImagem("/Imagens/Bruxa.png");
-			}
-
+			imgInimigo.setImagem(partidaControle.getInimigoAtual().getCaminhoImagem());
 			barraVidaInimigo.setMaximum(inimigo.getVidaMaxima());
 			barraVidaInimigo.setValue(inimigo.getVidaAtual());
 			barraVidaInimigo.setString("Vida: " + inimigo.getVidaAtual() + " / " + inimigo.getVidaMaxima());

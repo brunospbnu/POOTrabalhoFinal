@@ -27,4 +27,9 @@ public class Goblin extends Inimigo {
 		return 250;
 	}
 
+	@Override
+	public String getCaminhoImagem() {
+		return "/Imagens/Goblin.png";
+	}
+
 }

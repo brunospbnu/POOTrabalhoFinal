@@ -27,4 +27,9 @@ public class Bruxa extends Inimigo {
 		return 400;
 	}
 
+	@Override
+	public String getCaminhoImagem() {
+		return "/Imagens/Bruxa.png";
+	}
+
 }

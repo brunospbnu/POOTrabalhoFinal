@@ -26,4 +26,9 @@ public class Esqueleto extends Inimigo {
 		return 300;
 	}
 
+	@Override
+	public String getCaminhoImagem() {
+		return "/Imagens/Esqueleto.png";
+	}
+
 }

@@ -73,5 +73,11 @@ public abstract class Personagem extends Entidade {
 	}
 	
 	public abstract String usarHabilidade(Inimigo alvo);
+	
+	
+	public abstract String getCaminhoImagem();
+	
+	
+	public abstract String getNomeRecurso();
 
 }

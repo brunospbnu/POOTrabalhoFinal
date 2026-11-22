@@ -29,4 +29,14 @@ public class Guerreiro extends Personagem {
 		return textoDeRetorno;
 	}
 
+	@Override
+	public String getCaminhoImagem() {
+		return "/Imagens/Cavaleiro.png";
+	}
+	
+	@Override
+	public String getNomeRecurso() {
+	    return "Força";
+	}
+
 }

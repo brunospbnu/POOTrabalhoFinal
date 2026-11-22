@@ -148,5 +148,7 @@ public abstract class Entidade {
 		this.estaDefendendo = true;
 		return this.nome + " ativou a defesa !!!\n";
 	}
+	
+	public abstract String getCaminhoImagem();
 
 }

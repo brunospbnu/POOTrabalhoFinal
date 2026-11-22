@@ -30,4 +30,15 @@ public class Arqueiro extends Personagem {
 		return textoDeRetorno;
 	}
 
+
+	@Override
+	public String getCaminhoImagem() {
+		return "/Imagens/Arqueira.png";
+	}
+	
+	@Override
+	public String getNomeRecurso() {
+	    return "Foco";
+	}
+
 }
