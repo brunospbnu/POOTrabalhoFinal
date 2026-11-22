@@ -259,7 +259,7 @@ public class Partida {
 			// que foi derrotado e pontos por turnos usados.
 			pontuacaoTotal = pontosVitoria + bonusPocoes + pontosInimigo + pontosTurnos;
 
-			// 8 - Atribuindo o total de pontos ao jogador
+			// 9 - Atribuindo o total de pontos ao jogador
 			this.jogadorPartida.addPontuacao(pontuacaoTotal);
 			
 		} else {
