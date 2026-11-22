@@ -192,27 +192,40 @@ public class Partida {
 			
 		}
 		
+		historicoDeAcoes.add(textoDeRetorno);
+		
 		return textoDeRetorno;
 	}
 
-	public void avancarEncontro() {
+	public String avancarEncontro() {
 
+		String textoDeRetorno = "";
+		
 		encontroAtual++;
 
 		if (encontroAtual == 2) {
 			inimigoAtual = inimigos.get(1); // Pega o Esqueleto
+			textoDeRetorno+= "Avançou para o encontro " + encontroAtual + " - Inimigo: " + inimigoAtual.getNome()+ " \n";
 		} else if (encontroAtual == 3) {
 			inimigoAtual = inimigos.get(2); // Pega a Bruxa / Boss
+			textoDeRetorno+= "Avançou para o encontro " + encontroAtual + " - Inimigo: " + inimigoAtual.getNome()+ " \n";
 		} else {
 			// Se passar de 3, o jogo acabou e o jogador venceu!
 			statusPartida = StatusPartida.VITORIA;
 			calcularPontuacaoFinal();
+			textoDeRetorno+= "Ganhou o jogo !!!\n";
 		}
-
+		historicoDeAcoes.add(textoDeRetorno);
+		return textoDeRetorno;
 	}
 
 // Deixei tudo comentado e explicado a maneira que esse método funciona. Obs.: Podemos sim adicionar mais coisas, isso aqui ainda é um teste
-	public void calcularPontuacaoFinal() throws ValorMenorQue0 {
+	public String calcularPontuacaoFinal() throws ValorMenorQue0 {
+		
+		String textoDeRetorno = "";
+		
+		int pontuacaoTotal = 0;
+		
 		// 1 - Vamos supor no momento que o jogador ganhe 200 pontos a cada vitória
 		if (this.statusPartida == StatusPartida.VITORIA) {
 			int pontosVitoria = 200;
@@ -241,16 +254,19 @@ public class Partida {
 
 			// 8 - Soma total, incluindo os pontos pela vitória, poções, pontos do inimigo
 			// que foi derrotado e pontos por turnos usados.
-			int pontuacaoTotal = pontosVitoria + bonusPocoes + pontosInimigo + pontosTurnos;
+			pontuacaoTotal = pontosVitoria + bonusPocoes + pontosInimigo + pontosTurnos;
 
 			// 8 - Atribuindo o total de pontos ao jogador
 			this.jogadorPartida.addPontuacao(pontuacaoTotal);
-
+			
 		} else {
 			// 10 - se perder não vai ganhar pontos por vitória
-			this.jogadorPartida.setPontuacao(0);
+			this.jogadorPartida.setPontuacao(pontuacaoTotal);
 		}
-
+		
+		textoDeRetorno += "Pontuação Final: " + pontuacaoTotal;
+		
+		return textoDeRetorno;
 	}
 
 	public boolean isFinalizada() {
