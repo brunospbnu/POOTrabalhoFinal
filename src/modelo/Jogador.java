@@ -24,6 +24,9 @@ public class Jogador implements Serializable{
 		setPontuacao(pontuacao);
 	}
 
+	
+	// GETS e SETS ---------------------------------------
+	
 	public String getNomeJogador() {
 		return nomeJogador;
 	}
@@ -46,13 +49,7 @@ public class Jogador implements Serializable{
 		this.pontuacao = pontuacao;
 	}
 
-	public void addPontuacao(int pontos) throws ValorMenorQue0Exception {
-		if (pontos < 0) {
-			throw new ValorMenorQue0Exception("A pontuação a ser adicionada");
-		}
-		pontuacao += pontos;
-	}
-
+	
 	public String getClassePersonagem() {
 		return classePersonagem;
 	}
@@ -74,5 +71,17 @@ public class Jogador implements Serializable{
 		}
 		this.resultado = resultado;
 	}
+	
+	
+	// METODO DE ADIÇÃO: ---------------------
+	
+	public void addPontuacao(int pontos) throws ValorMenorQue0Exception {
+		if (pontos < 0) {
+			throw new ValorMenorQue0Exception("A pontuação a ser adicionada");
+		}
+		pontuacao += pontos;
+	}
+
+	
 
 }
