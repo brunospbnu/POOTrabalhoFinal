@@ -4,6 +4,11 @@ import excecoes.RecursoInsuficienteException;
 
 public class Guerreiro extends Personagem {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public Guerreiro(String nome, int danoBase, int vidaMaxima, int vidaAtual, int recursoMaximo, int recursoAtual,
 			boolean estaDefendendo, Inventario mochila) throws RecursoInsuficienteException {
 		

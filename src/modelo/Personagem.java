@@ -4,8 +4,14 @@ import excecoes.ObjetoNuloException;
 import excecoes.ValorMenorQue0Exception;
 import excecoes.ValorMenorQue1Exception;
 
-public abstract class Personagem extends Entidade {
+public abstract class Personagem extends Entidade{
 
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private int recursoAtual;
 	private int recursoMaximo;
 	private Inventario inventario;

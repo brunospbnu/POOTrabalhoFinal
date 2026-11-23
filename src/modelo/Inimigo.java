@@ -2,6 +2,11 @@ package modelo;
 
 public abstract class Inimigo extends Entidade {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public Inimigo(String nome, int danoBase, int vidaMaxima, int vidaAtual, boolean estaDefendendo) {
 		super(nome, danoBase, vidaMaxima, vidaAtual, estaDefendendo);
 	}

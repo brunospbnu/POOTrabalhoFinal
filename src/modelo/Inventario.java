@@ -1,8 +1,15 @@
 package modelo;
 
+import java.io.Serializable;
+
 import excecoes.ValorMenorQue0Exception;
 
-public class Inventario {
+public class Inventario implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	private int qtdPocoes;
 	

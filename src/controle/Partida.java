@@ -14,7 +14,7 @@ public class Partida implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 3885154217065819839L;
+	private static final long serialVersionUID = 1L;
 	
 	
 	

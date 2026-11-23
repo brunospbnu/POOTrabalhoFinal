@@ -1,10 +1,17 @@
 package modelo;
 
+import java.io.Serializable;
+
 import excecoes.NomeInvalidoException;
 import excecoes.ValorMenorQue0Exception;
 
-public class Jogador {
+public class Jogador implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private String nomeJogador;
 	private int pontuacao;
 

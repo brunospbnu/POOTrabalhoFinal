@@ -7,7 +7,7 @@ public class ValorMenorQue0Exception extends IllegalArgumentException {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 6271670468128317025L;
+	private static final long serialVersionUID = 1L;
 
 	public ValorMenorQue0Exception(String nome) {
 		

@@ -2,6 +2,11 @@ package modelo;
 
 public class Esqueleto extends Inimigo {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public Esqueleto(String nome, int danoBase, int vidaMaxima, int vidaAtual, boolean estaDefendendo) {
 		super(nome, danoBase, vidaMaxima, vidaAtual, estaDefendendo);
 	}

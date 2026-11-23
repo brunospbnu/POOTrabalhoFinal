@@ -1,12 +1,20 @@
 package modelo;
 
+import java.io.Serializable;
+
 import excecoes.NomeInvalidoException;
 import excecoes.ObjetoNuloException;
 import excecoes.ValorMenorQue0Exception;
 import excecoes.ValorMenorQue1Exception;
 
-public abstract class Entidade {
+public abstract class Entidade implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	
 	private String nome;
 	private int danoBase;
 	private int vidaMaxima;

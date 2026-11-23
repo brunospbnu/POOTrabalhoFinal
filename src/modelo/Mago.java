@@ -4,6 +4,11 @@ import excecoes.RecursoInsuficienteException;
 
 public class Mago extends Personagem {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public Mago(String nome, int danoBase, int vidaMaxima, int vidaAtual, int recursoMaximo, int recursoAtual,
 			boolean estaDefendendo, Inventario mochila) throws RecursoInsuficienteException {
 		super(nome, danoBase, vidaMaxima, vidaAtual, recursoMaximo, recursoAtual, estaDefendendo, mochila);

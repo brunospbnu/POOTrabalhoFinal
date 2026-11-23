@@ -2,6 +2,11 @@ package modelo;
 
 public class Goblin extends Inimigo {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public Goblin(String nome, int danoBase, int vidaMaxima, int vidaAtual, boolean estaDefendendo) {
 		super(nome, danoBase, vidaMaxima, vidaAtual, estaDefendendo);
 	}

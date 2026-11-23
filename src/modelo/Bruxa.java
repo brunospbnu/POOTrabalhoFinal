@@ -2,6 +2,11 @@ package modelo;
 
 public class Bruxa extends Inimigo {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public Bruxa(String nome, int danoBase, int vidaMaxima, int vidaAtual, boolean estaDefendendo) {
 		super(nome, danoBase, vidaMaxima, vidaAtual, estaDefendendo);
 	}
