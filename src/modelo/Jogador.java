@@ -14,8 +14,12 @@ public class Jogador implements Serializable{
 	
 	private String nomeJogador;
 	private int pontuacao;
+	private String classePersonagem;
+	private String resultado;
+	
 
-	public Jogador(String nomeJogador, int pontuacao) throws NomeInvalidoException, ValorMenorQue0Exception {
+	public Jogador(String nomeJogador, int pontuacao) throws NomeInvalidoException, ValorMenorQue0Exception, IllegalArgumentException {
+		setResultado("Em andamento");
 		setNomeJogador(nomeJogador);
 		setPontuacao(pontuacao);
 	}
@@ -47,6 +51,28 @@ public class Jogador implements Serializable{
 			throw new ValorMenorQue0Exception("A pontuação a ser adicionada");
 		}
 		pontuacao += pontos;
+	}
+
+	public String getClassePersonagem() {
+		return classePersonagem;
+	}
+
+	public void setClassePersonagem(String classePersonagem) throws IllegalArgumentException {
+		if (classePersonagem == null || classePersonagem.trim().isEmpty()) {
+			throw new IllegalArgumentException("A classe do personagem não pode ser vazia.");
+		}
+		this.classePersonagem = classePersonagem;
+	}
+
+	public String getResultado() {
+		return resultado;
+	}
+
+	public void setResultado(String resultado) {
+		if (resultado == null || resultado.trim().isEmpty()) {
+			throw new IllegalArgumentException("O resultado não pode ser vazio.");
+		}
+		this.resultado = resultado;
 	}
 
 }
