@@ -160,6 +160,19 @@ public class Partida implements Serializable {
 
 	public String executarAcaoTurno(int acaoEscolhida) throws IllegalArgumentException, ObjetoNuloException, ValorMenorQue1Exception {
 		
+		if (isFinalizada()) {
+			throw new IllegalArgumentException("Partida já finalizada. Não é possível executar ação.");
+		}
+
+		if (inimigoAtual.getVidaAtual() == 0) {
+			if (acaoEscolhida == 3) {
+				String textoPocao = personagemPartida.tomarPocao() + "\n";
+				historicoDeAcoes.add(textoPocao);
+				return textoPocao;
+			}
+			throw new IllegalArgumentException("O inimigo atual já foi derrotado. Avance para o próximo encontro ou use uma poção.");
+		}
+		
 		String textoDeRetorno = "• Turno " + turnoAtual + ": \n";
 		
 		// O metodo visão vai fornecer um int correspondente a ação escolhida.
@@ -188,14 +201,17 @@ public class Partida implements Serializable {
 		
 		if (inimigoAtual.getVidaAtual() == 0) {
 			textoDeRetorno += "\nDerrotou o(a) " + inimigoAtual.getNome();
-			avancarEncontro();
+			if (encontroAtual == 3) {
+		        statusPartida = StatusPartida.VITORIA;
+		        textoDeRetorno += "\n" + calcularPontuacaoFinal();
+		    }
 		}
 		else {
 			textoDeRetorno += inimigoAtual.acaoAutomatica(getPersonagemPartida(), getTurnoAtual());
 			
 			if (personagemPartida.getVidaAtual() == 0) {
 				this.setStatusPartida(StatusPartida.DERROTA);
-				calcularPontuacaoFinal();
+				textoDeRetorno += "\n" + calcularPontuacaoFinal();
 			}
 			else {
 				turnoAtual ++;
@@ -262,6 +278,9 @@ public class Partida implements Serializable {
 			
 			int turnosUsados = turnoAtual;
 			int pontosTurnos = 500 - (10 * turnosUsados);
+			if (pontosTurnos < 0) {
+				pontosTurnos = 0;
+			}
 
 			// 8 - Soma total, incluindo os pontos pela vitória, poções, pontos do inimigo
 			// que foi derrotado e pontos por turnos usados.

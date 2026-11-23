@@ -48,6 +48,7 @@ public class Partida extends PainelFundo {
 	private JLabel lblNomeInimigo;
 	private LabelImagem imgInimigo;
 	private JProgressBar barraVidaInimigo;
+	private BotaoImagem btnAvancarEncontro;
 
 	// Botões de ação
 	private BotaoImagem btnVoltar;
@@ -163,6 +164,18 @@ public class Partida extends PainelFundo {
 		barraVidaInimigo.setFont(new Font("Tahoma", Font.BOLD, 11));
 		add(barraVidaInimigo);
 
+		// Botão Avançar Encontro (aparece quando o inimigo atual é derrotado)
+		btnAvancarEncontro = new BotaoImagem("/Imagens/AvancarEncontro.png");
+		btnAvancarEncontro.setBounds(502, 285, 190, 55);
+		btnAvancarEncontro.setVisible(false);
+		btnAvancarEncontro.setEnabled(false);
+		btnAvancarEncontro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				avancarParaProximoEncontro();
+			}
+		});
+		add(btnAvancarEncontro);
+
 		// 5. Rodapé - Botões de Ação
 		btnVoltar = new BotaoImagem("/Imagens/BotãoVoltar.png");
 		btnVoltar.setBounds(25, 380, 135, 42);
@@ -237,6 +250,7 @@ public class Partida extends PainelFundo {
 					lblNomeInimigo.setBounds((int) (502 * px), (int) (44 * py), (int) (190 * px), (int) (24 * py));
 					imgInimigo.setBounds((int) (524 * px), (int) (72 * py), (int) (145 * px), (int) (140 * py));
 					barraVidaInimigo.setBounds((int) (502 * px), (int) (218 * py), (int) (190 * px), (int) (22 * py));
+					btnAvancarEncontro.setBounds((int) (502 * px), (int) (285 * py), (int) (190 * px), (int) (55 * py));
 
 					// Botões
 					btnVoltar.setBounds((int) (25 * px), (int) (380 * py), (int) (135 * px), (int) (42 * py));
@@ -249,12 +263,21 @@ public class Partida extends PainelFundo {
 	}
 
 	/**
-	 * Carrega uma nova partida na tela e atualiza todos os elementos visuais.
+	 * Carrega uma partida (nova ou restaurada de arquivo) na tela e atualiza os elementos visuais.
 	 */
 	public void carregarPartida(controle.Partida novaPartida) {
 		this.partidaControle = novaPartida;
-		txtHistorico.setText("A batalha começou! Enfrente o " + novaPartida.getInimigoAtual().getNome() + ".\n\n");
-		setBotoesCombateHabilitados(true);
+		txtHistorico.setText("");
+
+		if (novaPartida.getHistoricoDeAcoes() != null && !novaPartida.getHistoricoDeAcoes().isEmpty()) {
+			for (String registro : novaPartida.getHistoricoDeAcoes()) {
+				txtHistorico.append(registro + "\n\n");
+			}
+		} else {
+			txtHistorico.setText("A batalha começou! Enfrente o " + novaPartida.getInimigoAtual().getNome() + ".\n\n");
+		}
+		txtHistorico.setCaretPosition(txtHistorico.getDocument().getLength());
+
 		atualizarTela();
 	}
 
@@ -271,20 +294,37 @@ public class Partida extends PainelFundo {
 			atualizarTela();
 
 			if (partidaControle.isFinalizada()) {
-				setBotoesCombateHabilitados(false);
 				int pontuacao = partidaControle.getJogadorPartida().getPontuacao();
+				int turnos = partidaControle.getTurnoAtual();
 
 				if (partidaControle.getStatusPartida() == StatusPartida.VITORIA) {
 					JOptionPane.showMessageDialog(this,
 							"Parabéns, " + partidaControle.getJogadorPartida().getNomeJogador()
-									+ "! Você venceu todos os inimigos!\nPontuação final: " + pontuacao,
+									+ "! Você venceu todos os inimigos!\nTurnos: " + turnos
+									+ "\nPontuação final: " + pontuacao,
 							"Vitória!", JOptionPane.INFORMATION_MESSAGE);
 				} else {
 					JOptionPane.showMessageDialog(this,
-							"Você foi derrotado!\nPontuação final: " + pontuacao,
+							"Você foi derrotado!\nTurnos: " + turnos
+									+ "\nPontuação final: " + pontuacao,
 							"Derrota", JOptionPane.WARNING_MESSAGE);
 				}
 			}
+		} catch (Exception ex) {
+			JOptionPane.showMessageDialog(this, ex.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
+		}
+	}
+
+	private void avancarParaProximoEncontro() {
+		if (partidaControle == null || partidaControle.isFinalizada()) {
+			return;
+		}
+
+		try {
+			String resultado = partidaControle.avancarEncontro();
+			txtHistorico.append(resultado + "\n");
+			txtHistorico.setCaretPosition(txtHistorico.getDocument().getLength());
+			atualizarTela();
 		} catch (Exception ex) {
 			JOptionPane.showMessageDialog(this, ex.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
 		}
@@ -306,7 +346,7 @@ public class Partida extends PainelFundo {
 		lblNomePersonagem.setText(partidaControle.getJogadorPartida().getNomeJogador() + " (" + heroi.getNome() + ")");
 		imgPersonagem.setImagem(heroi.getCaminhoImagem());
 		String nomeRecurso = heroi.getNomeRecurso();
-		
+
 		switch (nomeRecurso) {
 		case "Força":
 			barraRecursoPersonagem.setForeground(new Color(210, 120, 30)); // Laranja (Guerreiro)
@@ -321,7 +361,6 @@ public class Partida extends PainelFundo {
 			barraRecursoPersonagem.setForeground(new Color(100, 100, 100)); // Cor padrão
 			break;
 		}
-		
 
 		// Barras do personagem
 		barraVidaPersonagem.setMaximum(heroi.getVidaMaxima());
@@ -332,25 +371,33 @@ public class Partida extends PainelFundo {
 		barraRecursoPersonagem.setValue(heroi.getRecursoAtual());
 		barraRecursoPersonagem.setString(nomeRecurso + ": " + heroi.getRecursoAtual() + " / " + heroi.getRecursoMaximo());
 
-		// Inventário (Poções)
-		int qtdPocoes = (heroi.getInventario() != null) ? heroi.getInventario().getQtdPocoes() : 0;
-		lblPocoes.setText("Poções: " + qtdPocoes);
-		btnTomarPocao.setEnabled(!partidaControle.isFinalizada() && qtdPocoes > 0);
-
 		// Inimigo atual (Goblin -> Esqueleto -> Bruxa)
 		if (inimigo != null) {
 			lblNomeInimigo.setText(inimigo.getNome());
-			imgInimigo.setImagem(partidaControle.getInimigoAtual().getCaminhoImagem());
+			imgInimigo.setImagem(inimigo.getCaminhoImagem());
 			barraVidaInimigo.setMaximum(inimigo.getVidaMaxima());
 			barraVidaInimigo.setValue(inimigo.getVidaAtual());
 			barraVidaInimigo.setString("Vida: " + inimigo.getVidaAtual() + " / " + inimigo.getVidaMaxima());
 		}
-	}
 
-	private void setBotoesCombateHabilitados(boolean habilitado) {
-		btnAtacar.setEnabled(habilitado);
-		btnDefender.setEnabled(habilitado);
-		btnHabilidade.setEnabled(habilitado);
-		btnTomarPocao.setEnabled(habilitado);
+		// Controle do estado dos botões conforme o momento da partida
+		boolean finalizada = partidaControle.isFinalizada();
+		boolean inimigoDerrotado = (inimigo != null && inimigo.getVidaAtual() == 0);
+		boolean podeAvancar = (!finalizada && inimigoDerrotado && partidaControle.getEncontroAtual() < 3);
+
+		// Combate ativo somente enquanto a partida não terminou e o inimigo está vivo
+		boolean combateAtivo = (!finalizada && !inimigoDerrotado);
+		btnAtacar.setEnabled(combateAtivo);
+		btnDefender.setEnabled(combateAtivo);
+		btnHabilidade.setEnabled(combateAtivo);
+
+		// Inventário (Poções) liberado durante o combate e no intervalo entre encontros
+		int qtdPocoes = (heroi.getInventario() != null) ? heroi.getInventario().getQtdPocoes() : 0;
+		lblPocoes.setText("Poções: " + qtdPocoes);
+		btnTomarPocao.setEnabled(!finalizada && qtdPocoes > 0);
+
+		// Botão Avançar Encontro aparece apenas no intervalo entre encontros
+		btnAvancarEncontro.setVisible(podeAvancar);
+		btnAvancarEncontro.setEnabled(podeAvancar);
 	}
 }
