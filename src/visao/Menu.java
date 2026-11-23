@@ -1,15 +1,25 @@
 package visao;
 
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.io.File;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import controle.GerenciadorDeSave;
 
 public class Menu extends JFrame {
 
@@ -17,6 +27,7 @@ public class Menu extends JFrame {
 	private JPanel contentPane;
 	private InserirNome telaInserirNome;
 	private Partida telaPartida;
+	private String pastaDados;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -32,6 +43,9 @@ public class Menu extends JFrame {
 	}
 
 	public Menu() {
+		// Pasta padrão inicial (pode ser alterada pelo usuário no botão "Pasta de Dados")
+		this.pastaDados = System.getProperty("user.home");
+
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Menu.class.getResource("/Imagens/Icone.jpg")));
 		setTitle("Guardiões da Relíquia");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -45,16 +59,16 @@ public class Menu extends JFrame {
 		// Dimensões e alinhamento padrão para todos os botões
 		int xBase = 30;
 		int larguraBase = 190;
-		int alturaBase = 60;
+		int alturaBase = 50;
 
 		// Painel inicial com imagem de fundo responsiva
 		PainelFundo telaInicial = new PainelFundo("/Imagens/MenuPrincipal.jpg");
 		telaInicial.setLayout(null);
 		contentPane.add(telaInicial, "telaInicial");
 
-		// NOVA PARTIDA
+		// 1. NOVA PARTIDA
 		BotaoImagem btnNovaPartida = new BotaoImagem("/Imagens/BotãoNovaPartida.png");
-		btnNovaPartida.setBounds(xBase, 130, larguraBase, alturaBase);
+		btnNovaPartida.setBounds(xBase, 120, larguraBase, alturaBase);
 		btnNovaPartida.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				trocarTela("inserirNome");
@@ -62,19 +76,41 @@ public class Menu extends JFrame {
 		});
 		telaInicial.add(btnNovaPartida);
 
-		// CONSULTAR RANKING
+		// 2. CARREGAR PARTIDA (provisório em texto; quando criar o PNG, troque pela linha comentada)
+		// BotaoImagem btnCarregarPartida = new BotaoImagem("/Imagens/BotãoCarregarPartida.png");
+		JButton btnCarregarPartida = criarBotaoProvisorio("Carregar Partida");
+		btnCarregarPartida.setBounds(xBase, 182, larguraBase, alturaBase);
+		btnCarregarPartida.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				carregarPartidaSalva();
+			}
+		});
+		telaInicial.add(btnCarregarPartida);
+
+		// 3. CONSULTAR RANKING
 		BotaoImagem btnConsultarRanking = new BotaoImagem("/Imagens/BotãoConsultarRanking.png");
-		btnConsultarRanking.setBounds(xBase, 210, larguraBase, alturaBase);
+		btnConsultarRanking.setBounds(xBase, 244, larguraBase, alturaBase);
 		btnConsultarRanking.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// Ação do ranking
+				// Ação do ranking (vamos conectar quando criarmos a tela de Ranking)
 			}
 		});
 		telaInicial.add(btnConsultarRanking);
 
-		// SAIR DO JOGO
+		// 4. PASTA DE DADOS (provisório em texto; quando criar o PNG, troque pela linha comentada)
+		// BotaoImagem btnConfigurarPasta = new BotaoImagem("/Imagens/BotãoPastaDados.png");
+		JButton btnConfigurarPasta = criarBotaoProvisorio("Pasta de Dados");
+		btnConfigurarPasta.setBounds(xBase, 306, larguraBase, alturaBase);
+		btnConfigurarPasta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				configurarPastaDados();
+			}
+		});
+		telaInicial.add(btnConfigurarPasta);
+
+		// 5. SAIR DO JOGO
 		BotaoImagem btnSairDoJogo = new BotaoImagem("/Imagens/BotãoSair.png");
-		btnSairDoJogo.setBounds(xBase, 290, larguraBase, alturaBase);
+		btnSairDoJogo.setBounds(xBase, 368, larguraBase, alturaBase);
 		btnSairDoJogo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
@@ -107,21 +143,76 @@ public class Menu extends JFrame {
 					int largura = (int) (larguraBase * proporcaoX);
 					int altura = (int) (alturaBase * proporcaoY);
 
-					btnNovaPartida.setBounds(x, (int) (130 * proporcaoY), largura, altura);
-					btnConsultarRanking.setBounds(x, (int) (210 * proporcaoY), largura, altura);
-					btnSairDoJogo.setBounds(x, (int) (290 * proporcaoY), largura, altura);
+					btnNovaPartida.setBounds(x, (int) (120 * proporcaoY), largura, altura);
+					btnCarregarPartida.setBounds(x, (int) (182 * proporcaoY), largura, altura);
+					btnConsultarRanking.setBounds(x, (int) (244 * proporcaoY), largura, altura);
+					btnConfigurarPasta.setBounds(x, (int) (306 * proporcaoY), largura, altura);
+					btnSairDoJogo.setBounds(x, (int) (368 * proporcaoY), largura, altura);
 				}
 			}
 		});
 	}
 
+	private JButton criarBotaoProvisorio(String texto) {
+		JButton botao = new JButton(texto);
+		botao.setFont(new Font("Tahoma", Font.BOLD, 15));
+		botao.setBackground(new Color(70, 40, 20));
+		botao.setForeground(new Color(255, 215, 100));
+		botao.setFocusPainted(false);
+		botao.setBorder(BorderFactory.createLineBorder(new Color(180, 140, 70), 2));
+		return botao;
+	}
+
+	public String getPastaDados() {
+		return pastaDados;
+	}
+
+	public void setPastaDados(String pastaDados) {
+		if (pastaDados != null && !pastaDados.trim().isEmpty()) {
+			this.pastaDados = pastaDados;
+		}
+	}
+
+	public void configurarPastaDados() {
+		JFileChooser seletor = new JFileChooser(new File(pastaDados));
+		seletor.setDialogTitle("Selecione a pasta para salvar e carregar os dados do jogo");
+		seletor.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		seletor.setAcceptAllFileFilterUsed(false);
+
+		int resultado = seletor.showOpenDialog(this);
+		if (resultado == JFileChooser.APPROVE_OPTION) {
+			File pastaSelecionada = seletor.getSelectedFile();
+			if (pastaSelecionada != null && pastaSelecionada.isDirectory()) {
+				this.pastaDados = pastaSelecionada.getAbsolutePath();
+				JOptionPane.showMessageDialog(this,
+						"Pasta de dados definida para:\n" + this.pastaDados,
+						"Pasta Configurada", JOptionPane.INFORMATION_MESSAGE);
+			} else {
+				JOptionPane.showMessageDialog(this,
+						"Selecione uma pasta válida.",
+						"Erro", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+	}
+
+	public void carregarPartidaSalva() {
+		try {
+			GerenciadorDeSave gerenciador = new GerenciadorDeSave(pastaDados);
+			controle.Partida partidaCarregada = gerenciador.carregarPartida();
+			telaPartida.carregarPartida(partidaCarregada);
+			trocarTela("partida");
+		} catch (Exception ex) {
+			JOptionPane.showMessageDialog(this,
+					"Não foi possível carregar a partida:\n" + ex.getMessage(),
+					"Erro ao Carregar", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+
 	public void trocarTela(String nomeTela) {
 		CardLayout cl = (CardLayout) contentPane.getLayout();
 		cl.show(contentPane, nomeTela);
-		
-		
 	}
-	
+
 	public void iniciarPartida(int opcaoDeClasse) {
 		try {
 			String nomeJogador = telaInserirNome.getNomeJogador();
@@ -129,9 +220,9 @@ public class Menu extends JFrame {
 			telaPartida.carregarPartida(partidaControle);
 			trocarTela("partida");
 		} catch (Exception ex) {
-			javax.swing.JOptionPane.showMessageDialog(this,
+			JOptionPane.showMessageDialog(this,
 					"Erro ao iniciar partida: " + ex.getMessage(),
-					"Erro", javax.swing.JOptionPane.ERROR_MESSAGE);
+					"Erro", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 }
