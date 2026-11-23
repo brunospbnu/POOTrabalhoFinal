@@ -26,6 +26,9 @@ public class Partida implements Serializable {
 	private int turnoAtual;
 	private StatusPartida statusPartida;
 	private List<String> historicoDeAcoes;
+	
+	
+	// CONSTRUTOR: -----------------------------------
 
 	public Partida(String nmJogador, int opcaoDeClasse) throws IllegalArgumentException, ObjetoNuloException, ValorMenorQue1Exception {
 		// 1. Instancia o jogador com o nome recebido do Menu
@@ -53,11 +56,17 @@ public class Partida implements Serializable {
 		turnoAtual = 1;
 		encontroAtual = 1;
 		statusPartida = StatusPartida.EM_ANDAMENTO;
+		//4.1. Registra o nome da classe escolhida no Jogador para futuramente salvar no ranking.
+		jogadorPartida.setClassePersonagem(personagemPartida.getNome());
 		// 5. Gera os inimigos da partida
 		inimigos = gerarInimigosIniciais();
 		inimigoAtual = inimigos.get(0);
 	}
 
+	
+	// GETS E SETS -------------------------------------------------------
+	
+	
 	public Jogador getJogadorPartida() {
 		return jogadorPartida;
 	}
@@ -143,6 +152,10 @@ public class Partida implements Serializable {
 		this.statusPartida = statusPartida;
 	}
 
+	
+	// METODOS PRINCIPAIS ----------------------------------
+	
+	
 	public List<Inimigo> gerarInimigosIniciais() {
 		List<Inimigo> lista = new ArrayList<>();
 
@@ -158,6 +171,10 @@ public class Partida implements Serializable {
 		return lista;
 	}
 
+	
+	
+	
+	
 	public String executarAcaoTurno(int acaoEscolhida) throws IllegalArgumentException, ObjetoNuloException, ValorMenorQue1Exception {
 		
 		if (isFinalizada()) {
@@ -224,6 +241,10 @@ public class Partida implements Serializable {
 		return textoDeRetorno;
 	}
 
+	
+	
+	
+	
 	public String avancarEncontro() {
 
 		String textoDeRetorno = "";
@@ -246,7 +267,10 @@ public class Partida implements Serializable {
 		return textoDeRetorno;
 	}
 
-// Deixei tudo comentado e explicado a maneira que esse método funciona. Obs.: Podemos sim adicionar mais coisas, isso aqui ainda é um teste
+	
+	
+	
+// Deixei tudo comentado e explicado a maneira que esse método funciona.
 	public String calcularPontuacaoFinal() throws ValorMenorQue0Exception {
 		
 		String textoDeRetorno = "";
@@ -286,12 +310,14 @@ public class Partida implements Serializable {
 			// que foi derrotado e pontos por turnos usados.
 			pontuacaoTotal = pontosVitoria + bonusPocoes + pontosInimigo + pontosTurnos;
 
-			// 9 - Atribuindo o total de pontos ao jogador
+			// 9 - Atribuindo o total de pontos e o resultado ao jogador
 			this.jogadorPartida.addPontuacao(pontuacaoTotal);
+			this.jogadorPartida.setResultado("Vitória");
 			
 		} else {
 			// 10 - se perder não vai ganhar pontos por vitória
 			this.jogadorPartida.setPontuacao(pontuacaoTotal);
+			this.jogadorPartida.setResultado("Derrota");
 		}
 		
 		textoDeRetorno += "Pontuação Final: " + pontuacaoTotal;
