@@ -77,8 +77,7 @@ public class Menu extends JFrame {
 		telaInicial.add(btnNovaPartida);
 
 		// 2. CARREGAR PARTIDA (provisório em texto; quando criar o PNG, troque pela linha comentada)
-		// BotaoImagem btnCarregarPartida = new BotaoImagem("/Imagens/BotãoCarregarPartida.png");
-		JButton btnCarregarPartida = criarBotaoProvisorio("Carregar Partida");
+		BotaoImagem btnCarregarPartida = new BotaoImagem("/Imagens/BotãoCarregarPartida.png");
 		btnCarregarPartida.setBounds(xBase, 182, larguraBase, alturaBase);
 		btnCarregarPartida.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -98,8 +97,7 @@ public class Menu extends JFrame {
 		telaInicial.add(btnConsultarRanking);
 
 		// 4. PASTA DE DADOS (provisório em texto; quando criar o PNG, troque pela linha comentada)
-		// BotaoImagem btnConfigurarPasta = new BotaoImagem("/Imagens/BotãoPastaDados.png");
-		JButton btnConfigurarPasta = criarBotaoProvisorio("Pasta de Dados");
+		BotaoImagem btnConfigurarPasta = new BotaoImagem("/Imagens/BotãoPastaDados.png");
 		btnConfigurarPasta.setBounds(xBase, 306, larguraBase, alturaBase);
 		btnConfigurarPasta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -151,16 +149,6 @@ public class Menu extends JFrame {
 				}
 			}
 		});
-	}
-
-	private JButton criarBotaoProvisorio(String texto) {
-		JButton botao = new JButton(texto);
-		botao.setFont(new Font("Tahoma", Font.BOLD, 15));
-		botao.setBackground(new Color(70, 40, 20));
-		botao.setForeground(new Color(255, 215, 100));
-		botao.setFocusPainted(false);
-		botao.setBorder(BorderFactory.createLineBorder(new Color(180, 140, 70), 2));
-		return botao;
 	}
 
 	public String getPastaDados() {
