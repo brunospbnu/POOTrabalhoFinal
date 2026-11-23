@@ -11,6 +11,10 @@ public class Goblin extends Inimigo {
 		super(nome, danoBase, vidaMaxima, vidaAtual, estaDefendendo);
 	}
 
+	
+	// A AÇÃO AUTOMATICA DO GOBLIN SERÁ A PADRÂO DA CLASSE MÃE INIMIGO. GOBLIN NÃO VAI APENAS DEFENDER, VAI SEMPRE ATACAR OU USAR HABILIDADE.
+	
+	
 	@Override
 	public String usarHabilidade(Personagem alvo) {
 		

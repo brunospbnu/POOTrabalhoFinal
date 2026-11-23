@@ -58,6 +58,10 @@ public class GerenciadorDeSave {
 		if (partidaInformada == null) {
 			throw new ObjetoNuloException("A partida a ser salva");
 		}
+		
+		if (partidaInformada.getInimigoAtual().getVidaAtual() > 0) {
+			throw new IllegalArgumentException("Não é permitido salvar durante o encontro com o inimigo, somente ao fim do encontro !!!");
+		}
 
 		File pasta = new File(caminhoArquivo);
 		if (!pasta.isDirectory()) {

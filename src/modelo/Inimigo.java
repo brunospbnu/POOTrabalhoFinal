@@ -16,15 +16,12 @@ public abstract class Inimigo extends Entidade {
 		// texto que anota o que o inimigo fez e retorna para a classe que chamou.
 		String textoDeRetorno = "";
 		
-		// verifica se o jogador ativou a defesa e o inimigo está com ela desativada
-		// , e se sim ativa também.
-		if (alvo.estaDefendendo() && !this.estaDefendendo()) {
-			textoDeRetorno += super.defender();
-		}
+		
 		// a cada 3 turnos usa a habilidade
-		else if (turnoAtual % 3 == 0) {
+		if (turnoAtual % 3 == 0) {
 			textoDeRetorno += usarHabilidade(alvo);
 		}
+
 		else {
 			textoDeRetorno += super.atacar(alvo);
 		}

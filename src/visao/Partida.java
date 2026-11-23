@@ -19,6 +19,7 @@ import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
 import controle.StatusPartida;
+import controle.GerenciadorDeSave;
 import modelo.Inimigo;
 import modelo.Personagem;
 
@@ -30,6 +31,7 @@ public class Partida extends PainelFundo {
 
 	// Topo
 	private JLabel lblInfoEncontro;
+	private JButton btnSalvarPartida;
 
 	// Lado do personagem
 	private JLabel lblNomePersonagem;
@@ -70,6 +72,22 @@ public class Partida extends PainelFundo {
 		lblInfoEncontro.setBackground(new Color(30, 18, 10, 200));
 		lblInfoEncontro.setBorder(BorderFactory.createLineBorder(new Color(180, 140, 70), 2));
 		add(lblInfoEncontro);
+		
+		// Botão Salvar Partida (provisório em texto; quando criar o PNG, troque pela linha comentada)
+		// btnSalvarPartida = new BotaoImagem("/Imagens/BotãoSalvar.png");
+		btnSalvarPartida = new JButton("Salvar Partida");
+		btnSalvarPartida.setBounds(552, 10, 140, 28);
+		btnSalvarPartida.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnSalvarPartida.setBackground(new Color(70, 40, 20));
+		btnSalvarPartida.setForeground(new Color(255, 215, 100));
+		btnSalvarPartida.setFocusPainted(false);
+		btnSalvarPartida.setBorder(BorderFactory.createLineBorder(new Color(180, 140, 70), 2));
+		btnSalvarPartida.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				salvarPartidaAtual();
+			}
+			});
+				add(btnSalvarPartida);
 
 		// 2. Lado Esquerdo - Personagem
 		lblNomePersonagem = new JLabel("Personagem", SwingConstants.CENTER);
@@ -235,7 +253,8 @@ public class Partida extends PainelFundo {
 					double py = alturaAtual / 471.0;
 
 					lblInfoEncontro.setBounds((int) (180 * px), (int) (10 * py), (int) (357 * px), (int) (28 * py));
-
+					btnSalvarPartida.setBounds((int) (552 * px), (int) (10 * py), (int) (140 * px), (int) (28 * py));
+					
 					// Personagem
 					lblNomePersonagem.setBounds((int) (25 * px), (int) (44 * py), (int) (190 * px), (int) (24 * py));
 					imgPersonagem.setBounds((int) (47 * px), (int) (72 * py), (int) (145 * px), (int) (140 * py));
@@ -329,6 +348,24 @@ public class Partida extends PainelFundo {
 			JOptionPane.showMessageDialog(this, ex.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
 		}
 	}
+	
+	private void salvarPartidaAtual() {
+		if (partidaControle == null || partidaControle.isFinalizada()) {
+			return;
+		}
+
+		try {
+			GerenciadorDeSave gerenciador = new GerenciadorDeSave(menu.getPastaDados());
+			gerenciador.salvarPartida(partidaControle);
+			JOptionPane.showMessageDialog(this,
+					"Partida salva com sucesso em:\n" + menu.getPastaDados(),
+					"Partida Salva", JOptionPane.INFORMATION_MESSAGE);
+		} catch (Exception ex) {
+			JOptionPane.showMessageDialog(this,
+					"Erro ao salvar a partida:\n" + ex.getMessage(),
+					"Erro ao Salvar", JOptionPane.ERROR_MESSAGE);
+		}
+	}
 
 	private void atualizarTela() {
 		if (partidaControle == null) {
@@ -399,5 +436,8 @@ public class Partida extends PainelFundo {
 		// Botão Avançar Encontro aparece apenas no intervalo entre encontros
 		btnAvancarEncontro.setVisible(podeAvancar);
 		btnAvancarEncontro.setEnabled(podeAvancar);
+		
+		// Só permite salvar enquanto a partida estiver em andamento
+		btnSalvarPartida.setEnabled(!finalizada);
 	}
 }
