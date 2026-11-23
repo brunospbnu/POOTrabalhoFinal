@@ -1,9 +1,9 @@
 package modelo;
 
 import excecoes.NomeInvalidoException;
-import excecoes.ObjetoNulo;
-import excecoes.ValorMenorQue0;
-import excecoes.ValorMenorQue1;
+import excecoes.ObjetoNuloException;
+import excecoes.ValorMenorQue0Exception;
+import excecoes.ValorMenorQue1Exception;
 
 public abstract class Entidade {
 
@@ -16,7 +16,7 @@ public abstract class Entidade {
 	private boolean estaDefendendo;
 
 	public Entidade(String nome, int danoBase, int vidaMaxima, int vidaAtual, boolean estaDefendendo)
-			throws NomeInvalidoException, ValorMenorQue1, ValorMenorQue0, ObjetoNulo {
+			throws NomeInvalidoException, ValorMenorQue1Exception, ValorMenorQue0Exception, ObjetoNuloException {
 		setNome(nome);
 		setDanoBase(danoBase);
 		setVidaMaxima(vidaMaxima);
@@ -42,9 +42,9 @@ public abstract class Entidade {
 		return danoBase;
 	}
 
-	public void setDanoBase(int danoBase) throws ValorMenorQue1 {
+	public void setDanoBase(int danoBase) throws ValorMenorQue1Exception {
 		if (danoBase < 1) {
-			throw new ValorMenorQue1("Dano Base");
+			throw new ValorMenorQue1Exception("Dano Base");
 		}
 		this.danoBase = danoBase;
 	}
@@ -53,9 +53,9 @@ public abstract class Entidade {
 		return vidaMaxima;
 	}
 
-	public void setVidaMaxima(int vidaMaxima) throws ValorMenorQue1 {
+	public void setVidaMaxima(int vidaMaxima) throws ValorMenorQue1Exception {
 		if (vidaMaxima < 1) {
-			throw new ValorMenorQue1("Vida Maxima");
+			throw new ValorMenorQue1Exception("Vida Maxima");
 		}
 		this.vidaMaxima = vidaMaxima;
 	}
@@ -64,9 +64,9 @@ public abstract class Entidade {
 		return vidaAtual;
 	}
 
-	public void setVidaAtual(int vidaAtual) throws ValorMenorQue0 {
+	public void setVidaAtual(int vidaAtual) throws ValorMenorQue0Exception {
 		if (vidaAtual < 0) {
-			throw new ValorMenorQue0("Vida Atual");
+			throw new ValorMenorQue0Exception("Vida Atual");
 		}
 		this.vidaAtual = vidaAtual;
 	}
@@ -82,10 +82,10 @@ public abstract class Entidade {
 	// -----------------------------------------------
 
 	// Metodo de receber dano considerando atributo de defesa
-	public String receberDano(int valor) throws ValorMenorQue1 { 
+	public String receberDano(int valor) throws ValorMenorQue1Exception { 
 		
 		if (valor < 1) { // primeiro a validação do valor recebido.
-			throw new ValorMenorQue1("Dano Recebido");
+			throw new ValorMenorQue1Exception("Dano Recebido");
 		}
 		
 		// metodo alterado para String para retornar a informação da defesa efetuada e do dano recebido.
@@ -118,9 +118,9 @@ public abstract class Entidade {
 
 	}
 
-	public String receberCura(int valor) throws ValorMenorQue1 {
+	public String receberCura(int valor) throws ValorMenorQue1Exception {
 		if (valor < 1) {
-			throw new ValorMenorQue1("Cura Recebida");
+			throw new ValorMenorQue1Exception("Cura Recebida");
 		}
 		
 		if ((vidaAtual + valor) > vidaMaxima) {
@@ -134,9 +134,9 @@ public abstract class Entidade {
 		return textoDeRetorno;
 	}
 
-	public String atacar(Entidade alvo) throws ObjetoNulo, ValorMenorQue1 {
+	public String atacar(Entidade alvo) throws ObjetoNuloException, ValorMenorQue1Exception {
 		if (alvo == null) {
-			throw new ObjetoNulo("Alvo");
+			throw new ObjetoNuloException("Alvo");
 		}
 		String textoDeRetorno = this.nome + " efetuou uma tentativa de ataque de " + danoBase + " unidades de vida !!! \n";
 		textoDeRetorno += alvo.receberDano(danoBase);

@@ -1,14 +1,14 @@
 package modelo;
 
 import excecoes.NomeInvalidoException;
-import excecoes.ValorMenorQue0;
+import excecoes.ValorMenorQue0Exception;
 
 public class Jogador {
 
 	private String nomeJogador;
 	private int pontuacao;
 
-	public Jogador(String nomeJogador, int pontuacao) throws NomeInvalidoException, ValorMenorQue0 {
+	public Jogador(String nomeJogador, int pontuacao) throws NomeInvalidoException, ValorMenorQue0Exception {
 		setNomeJogador(nomeJogador);
 		setPontuacao(pontuacao);
 	}
@@ -28,16 +28,16 @@ public class Jogador {
 		return pontuacao;
 	}
 
-	public void setPontuacao(int pontuacao) throws ValorMenorQue0 {
+	public void setPontuacao(int pontuacao) throws ValorMenorQue0Exception {
 		if (pontuacao < 0) {
-			throw new ValorMenorQue0("A pontuação a ser definida");
+			throw new ValorMenorQue0Exception("A pontuação a ser definida");
 		}
 		this.pontuacao = pontuacao;
 	}
 
-	public void addPontuacao(int pontos) throws ValorMenorQue0 {
+	public void addPontuacao(int pontos) throws ValorMenorQue0Exception {
 		if (pontos < 0) {
-			throw new ValorMenorQue0("A pontuação a ser adicionada");
+			throw new ValorMenorQue0Exception("A pontuação a ser adicionada");
 		}
 		pontuacao += pontos;
 	}

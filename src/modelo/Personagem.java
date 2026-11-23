@@ -1,8 +1,8 @@
 package modelo;
 
-import excecoes.ObjetoNulo;
-import excecoes.ValorMenorQue0;
-import excecoes.ValorMenorQue1;
+import excecoes.ObjetoNuloException;
+import excecoes.ValorMenorQue0Exception;
+import excecoes.ValorMenorQue1Exception;
 
 public abstract class Personagem extends Entidade {
 
@@ -11,7 +11,7 @@ public abstract class Personagem extends Entidade {
 	private Inventario inventario;
 
 	public Personagem(String nome, int danoBase, int vidaMaxima, int vidaAtual, int recursoAtual, int recursoMaximo,
-			boolean estaDefendendo, Inventario inventario) throws ValorMenorQue0, ValorMenorQue1, ObjetoNulo {
+			boolean estaDefendendo, Inventario inventario) throws ValorMenorQue0Exception, ValorMenorQue1Exception, ObjetoNuloException {
 
 		super(nome, danoBase, vidaMaxima, vidaAtual, estaDefendendo);
 		setRecursoAtual(recursoAtual);
@@ -25,9 +25,9 @@ public abstract class Personagem extends Entidade {
 		return recursoAtual;
 	}
 
-	public void setRecursoAtual(int recursoAtual) throws ValorMenorQue0 {
+	public void setRecursoAtual(int recursoAtual) throws ValorMenorQue0Exception {
 		if (recursoAtual < 0) {
-			throw new ValorMenorQue0("Recurso Atual");
+			throw new ValorMenorQue0Exception("Recurso Atual");
 		}
 		this.recursoAtual = recursoAtual;
 	}
@@ -36,9 +36,9 @@ public abstract class Personagem extends Entidade {
 		return recursoMaximo;
 	}
 
-	public void setRecursoMaximo(int recursoMaximo) throws ValorMenorQue1 {
+	public void setRecursoMaximo(int recursoMaximo) throws ValorMenorQue1Exception {
 		if (recursoMaximo < 1) {
-			throw new ValorMenorQue1("Recurso Maximo");
+			throw new ValorMenorQue1Exception("Recurso Maximo");
 		}
 		this.recursoMaximo = recursoMaximo;
 	}
@@ -47,9 +47,9 @@ public abstract class Personagem extends Entidade {
 		return inventario;
 	}
 
-	public void setInventario(Inventario inventario) throws ObjetoNulo {
+	public void setInventario(Inventario inventario) throws ObjetoNuloException {
 		if (inventario == null) {
-			throw new ObjetoNulo("O inventário");
+			throw new ObjetoNuloException("O inventário");
 		}
 		this.inventario = inventario;
 	}

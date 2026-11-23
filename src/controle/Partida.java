@@ -1,15 +1,23 @@
 package controle;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import excecoes.ObjetoNulo;
-import excecoes.ValorMenorQue0;
-import excecoes.ValorMenorQue1;
+import excecoes.ObjetoNuloException;
+import excecoes.ValorMenorQue0Exception;
+import excecoes.ValorMenorQue1Exception;
 import modelo.*;
 
-public class Partida {
+public class Partida implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3885154217065819839L;
+	
+	
+	
 	private Jogador jogadorPartida;
 	private Personagem personagemPartida;
 	private List<Inimigo> inimigos;
@@ -19,7 +27,7 @@ public class Partida {
 	private StatusPartida statusPartida;
 	private List<String> historicoDeAcoes;
 
-	public Partida(String nmJogador, int opcaoDeClasse) throws IllegalArgumentException, ObjetoNulo, ValorMenorQue1 {
+	public Partida(String nmJogador, int opcaoDeClasse) throws IllegalArgumentException, ObjetoNuloException, ValorMenorQue1Exception {
 		// 1. Instancia o jogador com o nome recebido do Menu
 		jogadorPartida = new Jogador(nmJogador, 0);
 		// 2. Instancia a lista de histórico
@@ -54,9 +62,9 @@ public class Partida {
 		return jogadorPartida;
 	}
 
-	public void setJogadorPartida(Jogador jogadorPartida) throws ObjetoNulo {
+	public void setJogadorPartida(Jogador jogadorPartida) throws ObjetoNuloException {
 		if (jogadorPartida == null) {
-			throw new ObjetoNulo("O jogador");
+			throw new ObjetoNuloException("O jogador");
 		}
 		this.jogadorPartida = jogadorPartida;
 	}
@@ -65,9 +73,9 @@ public class Partida {
 		return personagemPartida;
 	}
 
-	public void setPersonagemPartida(Personagem personagemPartida) throws ObjetoNulo {
+	public void setPersonagemPartida(Personagem personagemPartida) throws ObjetoNuloException {
 		if (personagemPartida == null) {
-			throw new ObjetoNulo("O personagem");
+			throw new ObjetoNuloException("O personagem");
 		}
 		this.personagemPartida = personagemPartida;
 	}
@@ -76,9 +84,9 @@ public class Partida {
 		return inimigos;
 	}
 
-	public void setInimigos(List<Inimigo> inimigos) throws ObjetoNulo{
+	public void setInimigos(List<Inimigo> inimigos) throws ObjetoNuloException{
 		if (inimigos == null) {
-			throw new ObjetoNulo("A lista de inimigos");
+			throw new ObjetoNuloException("A lista de inimigos");
 		}
 		this.inimigos = inimigos;
 	}
@@ -87,9 +95,9 @@ public class Partida {
 		return inimigoAtual;
 	}
 
-	public void setInimigoAtual(Inimigo inimigoAtual) throws ObjetoNulo {
+	public void setInimigoAtual(Inimigo inimigoAtual) throws ObjetoNuloException {
 		if (inimigoAtual == null) {
-			throw new ObjetoNulo("O inimigo atual");
+			throw new ObjetoNuloException("O inimigo atual");
 		}
 		this.inimigoAtual = inimigoAtual;
 	}
@@ -98,9 +106,9 @@ public class Partida {
 		return encontroAtual;
 	}
 
-	public void setEncontroAtual(int encontroAtual) throws ValorMenorQue1 {
+	public void setEncontroAtual(int encontroAtual) throws ValorMenorQue1Exception {
 		if (encontroAtual < 1) {
-			throw new ValorMenorQue1("O encontro atual");
+			throw new ValorMenorQue1Exception("O encontro atual");
 		}
 		this.encontroAtual = encontroAtual;
 	}
@@ -109,9 +117,9 @@ public class Partida {
 		return historicoDeAcoes;
 	}
 
-	public void setHistoricoDeAcoes(List<String> historicoDeAcoes) throws ObjetoNulo {
+	public void setHistoricoDeAcoes(List<String> historicoDeAcoes) throws ObjetoNuloException {
 		if (historicoDeAcoes == null) {
-			throw new ObjetoNulo("O histórico de ações");
+			throw new ObjetoNuloException("O histórico de ações");
 		}
 		this.historicoDeAcoes = historicoDeAcoes;
 	}
@@ -120,9 +128,9 @@ public class Partida {
 		return turnoAtual;
 	}
 
-	public void setTurnoAtual(int turnoAtual) throws ValorMenorQue1 {
+	public void setTurnoAtual(int turnoAtual) throws ValorMenorQue1Exception {
 		if (turnoAtual < 1) {
-			throw new ValorMenorQue1("O turno atual");
+			throw new ValorMenorQue1Exception("O turno atual");
 		}
 		this.turnoAtual = turnoAtual;
 	}
@@ -150,7 +158,7 @@ public class Partida {
 		return lista;
 	}
 
-	public String executarAcaoTurno(int acaoEscolhida) throws IllegalArgumentException, ObjetoNulo, ValorMenorQue1 {
+	public String executarAcaoTurno(int acaoEscolhida) throws IllegalArgumentException, ObjetoNuloException, ValorMenorQue1Exception {
 		
 		String textoDeRetorno = "• Turno " + turnoAtual + ": \n";
 		
@@ -223,7 +231,7 @@ public class Partida {
 	}
 
 // Deixei tudo comentado e explicado a maneira que esse método funciona. Obs.: Podemos sim adicionar mais coisas, isso aqui ainda é um teste
-	public String calcularPontuacaoFinal() throws ValorMenorQue0 {
+	public String calcularPontuacaoFinal() throws ValorMenorQue0Exception {
 		
 		String textoDeRetorno = "";
 		
