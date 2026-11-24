@@ -439,5 +439,17 @@ public class Partida extends PainelFundo {
 		
 		// Só permite salvar enquanto a partida estiver em andamento
 		btnSalvarPartida.setEnabled(!finalizada);
+		
+		
+		//  Chama o pacote de controle da partida para executar o salvamento automatico.
+		if (finalizada) {
+			try {
+				partidaControle.registrarNoRanking(menu.getPastaDados());
+			} catch (Exception ex) {
+				JOptionPane.showMessageDialog(this,
+						"Partida finalizada, mas não foi possível atualizar o ranking:\n" + ex.getMessage(),
+						"Aviso no Ranking", JOptionPane.WARNING_MESSAGE);
+			}
+		}
 	}
 }

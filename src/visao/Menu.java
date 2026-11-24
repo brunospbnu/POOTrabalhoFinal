@@ -27,6 +27,7 @@ public class Menu extends JFrame {
 	private JPanel contentPane;
 	private InserirNome telaInserirNome;
 	private Partida telaPartida;
+	private Ranking telaRanking;
 	private String pastaDados;
 
 	public static void main(String[] args) {
@@ -91,7 +92,8 @@ public class Menu extends JFrame {
 		btnConsultarRanking.setBounds(xBase, 244, larguraBase, alturaBase);
 		btnConsultarRanking.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// Ação do ranking (vamos conectar quando criarmos a tela de Ranking)
+				telaRanking.atualizarTabela();
+				trocarTela("ranking");
 			}
 		});
 		telaInicial.add(btnConsultarRanking);
@@ -125,6 +127,9 @@ public class Menu extends JFrame {
 
 		telaPartida = new Partida(this);
 		contentPane.add(telaPartida, "partida");
+		
+		telaRanking = new Ranking(this);
+		contentPane.add(telaRanking, "ranking");
 
 		// Reposiciona e redimensiona todos os botões proporcionalmente com o mesmo tamanho
 		telaInicial.addComponentListener(new ComponentAdapter() {

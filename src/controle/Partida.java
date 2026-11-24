@@ -1,5 +1,6 @@
 package controle;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,8 @@ public class Partida implements Serializable {
 	private int turnoAtual;
 	private StatusPartida statusPartida;
 	private List<String> historicoDeAcoes;
+	
+	private boolean rankingRegistrado = false;
 	
 	
 	// CONSTRUTOR: -----------------------------------
@@ -332,6 +335,20 @@ public class Partida implements Serializable {
 		}
 		return finalizada;
 
+	}
+	
+	
+	public void registrarNoRanking(String caminhoPasta) throws IOException {
+		if (!isFinalizada() || rankingRegistrado) {
+			return;
+		}
+
+		Ranking ranking = new Ranking(caminhoPasta);
+		ranking.carregarDoArquivo();
+		ranking.addPontuacaoJogador(this.jogadorPartida, this.jogadorPartida.getResultado());
+		ranking.salvarNoArquivo();
+
+		this.rankingRegistrado = true;
 	}
 
 }

@@ -1,8 +1,9 @@
 package controle;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.AtomicMoveNotSupportedException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,8 +19,9 @@ public class Ranking {
 
 	private final String assinaturaArquivo = "GUARDIOES_DA_RELIQUIA_RANKING";
 	private final int versaoFormato = 1;
-	private final String nomeArquivoFinal = "ranking.dat";
+	private final String nomeArquivoFinal = "ranking.txt";
 	private final String nomeArquivoTemp = "ranking.tmp";
+	private final String separador = ";";
 
 	private List<Jogador> jogadores;
 	private String caminhoArquivo;
@@ -52,9 +54,7 @@ public class Ranking {
 	}
 
 	// METODOS PRINCIPAIS: ---------------------------------------------
-	
-	
-	
+
 	public void addPontuacaoJogador(Jogador jogadorInformado, String resultado) {
 		if (jogadorInformado == null) {
 			throw new ObjetoNuloException("O jogador");
@@ -72,7 +72,6 @@ public class Ranking {
 	 * 2º Desempate: Vitória antes de Derrota
 	 * 3º Desempate: Ordem alfabética pelo nome do jogador
 	 */
-	
 	public void ordenarRanking() {
 		int n = jogadores.size();
 
@@ -91,16 +90,6 @@ public class Ranking {
 
 	private boolean deveTrocar(Jogador atual, Jogador proximo) {
 		// 1º critério: pontuação decrescente
-		
-		/*
-		Se atual tem menos pontos que proximo (ex.: atual = 300, proximo = 500), 
-		a expressão 300 < 500 resulta em true — ou seja, 
-		deve trocar os dois de posição para que o 500 vá para frente.
-
-		Se atual tem mais pontos que proximo (ex.: atual = 500, proximo = 300), 
-		a expressão 500 < 300 resulta em false — ou seja, já está na ordem certa e não troca.
-		
-		 */
 		if (atual.getPontuacao() != proximo.getPontuacao()) {
 			return atual.getPontuacao() < proximo.getPontuacao();
 		}
@@ -122,7 +111,7 @@ public class Ranking {
 
 		boolean atualVenceu = resAtual.equalsIgnoreCase("Vitória");
 		boolean proximoVenceu = resProximo.equalsIgnoreCase("Vitória");
-		
+
 		if (atualVenceu != proximoVenceu) {
 			return !atualVenceu && proximoVenceu;
 		}
@@ -131,7 +120,6 @@ public class Ranking {
 		return atual.getNomeJogador().compareToIgnoreCase(proximo.getNomeJogador()) > 0;
 	}
 
-	
 	public void salvarNoArquivo() throws IOException {
 		Path pasta = Paths.get(caminhoArquivo);
 		if (!Files.exists(pasta) || !Files.isDirectory(pasta)) {
@@ -142,11 +130,26 @@ public class Ranking {
 		Path arquivoFinal = pasta.resolve(nomeArquivoFinal);
 
 		try {
-			try (ObjectOutputStream oos = new ObjectOutputStream(Files.newOutputStream(arquivoTemp))) {
-				oos.writeUTF(assinaturaArquivo);
-				oos.writeInt(versaoFormato);
-				oos.writeObject(jogadores);
-				oos.flush();
+			try (BufferedWriter writer = Files.newBufferedWriter(arquivoTemp, StandardCharsets.UTF_8)) {
+				// Linha 1: assinatura e versão do formato
+				writer.write(assinaturaArquivo + separador + versaoFormato);
+				writer.newLine();
+
+				// Linha 2: cabeçalho legível para o Bloco de Notas
+				writer.write("NOME;CLASSE;PONTUACAO;RESULTADO");
+				writer.newLine();
+
+				// Linhas seguintes: registros dos jogadores
+				for (Jogador jogador : jogadores) {
+					String nome = limparCampo(jogador.getNomeJogador());
+					String classe = limparCampo(jogador.getClassePersonagem());
+					int pontuacao = jogador.getPontuacao();
+					String resultado = limparCampo(jogador.getResultado());
+
+					writer.write(nome + separador + classe + separador + pontuacao + separador + resultado);
+					writer.newLine();
+				}
+				writer.flush();
 			}
 
 			try {
@@ -166,7 +169,7 @@ public class Ranking {
 		}
 	}
 
-	public void carregarDoArquivo() throws IOException, ClassNotFoundException {
+	public void carregarDoArquivo() throws IOException {
 		Path pasta = Paths.get(caminhoArquivo);
 		if (!Files.exists(pasta) || !Files.isDirectory(pasta)) {
 			throw new IllegalArgumentException("Deve ser selecionada uma pasta válida para carregar o ranking.");
@@ -178,38 +181,71 @@ public class Ranking {
 			return;
 		}
 
-		try (ObjectInputStream ois = new ObjectInputStream(Files.newInputStream(arquivoRanking))) {
-			String assinaturaLida = ois.readUTF();
-			if (!assinaturaArquivo.equals(assinaturaLida)) {
+		List<Jogador> listaValidada = new ArrayList<>();
+
+		try (BufferedReader reader = Files.newBufferedReader(arquivoRanking, StandardCharsets.UTF_8)) {
+			// 1. Valida assinatura e versão na primeira linha
+			String primeiraLinha = reader.readLine();
+			if (primeiraLinha == null) {
+				throw new IOException("O arquivo de ranking está vazio.");
+			}
+
+			String[] cabecalhoVersao = primeiraLinha.split(separador);
+			if (cabecalhoVersao.length != 2 || !assinaturaArquivo.equals(cabecalhoVersao[0])) {
 				throw new IOException("Formato do arquivo de ranking inválido.");
 			}
 
-			int versaoLida = ois.readInt();
+			int versaoLida = Integer.parseInt(cabecalhoVersao[1].trim());
 			if (versaoLida != versaoFormato) {
-				throw new IOException("Versão do arquivo de ranking incompatível.");
+				throw new IOException("Versão do arquivo de ranking incompatível (esperada: "
+						+ versaoFormato + ", encontrada: " + versaoLida + ").");
 			}
 
-			Object objetoLido = ois.readObject();
-			
-			List<?> listaGenerica = (List<?>) objetoLido;
-			List<Jogador> listaValidada = new ArrayList<>();
+			// 2. Pula a linha de cabeçalho das colunas (NOME;CLASSE;PONTUACAO;RESULTADO)
+			reader.readLine();
 
-			for (Object item : listaGenerica) {
-			    if (!(item instanceof Jogador)) {
-			        throw new IOException("O arquivo de ranking contém dados inválidos.");
-			    }
-			    listaValidada.add((Jogador) item);
+			// 3. Lê e valida cada linha de jogador
+			String linha;
+			while ((linha = reader.readLine()) != null) {
+				if (linha.trim().isEmpty()) {
+					continue;
+				}
+
+				String[] partes = linha.split(separador, -1);
+				if (partes.length != 4) {
+					throw new IOException("Linha com formato inválido no arquivo de ranking: " + linha);
+				}
+
+				String nome = partes[0].trim();
+				String classe = partes[1].trim();
+				int pontuacao = Integer.parseInt(partes[2].trim());
+				String resultado = partes[3].trim();
+
+				Jogador jogador = new Jogador(nome, pontuacao);
+				jogador.setClassePersonagem(classe);
+				jogador.setPontuacao(pontuacao);
+				jogador.setResultado(resultado);
+
+				listaValidada.add(jogador);
 			}
 
 			this.jogadores = listaValidada;
-			
 			ordenarRanking();
 
-		} catch (IOException | ClassNotFoundException ex) {
+		} catch (NumberFormatException ex) {
+			throw new IOException("Arquivo de ranking corrompido: valor numérico inválido.", ex);
+		} catch (IOException ex) {
 			throw ex;
 		} catch (Exception ex) {
 			throw new IOException("Arquivo de ranking corrompido ou ilegível.", ex);
 		}
+	}
+
+	private String limparCampo(String texto) {
+		if (texto == null) {
+			return "";
+		}
+		return texto.replace(separador, ",").replace("\n", " ").replace("\r", " ").trim();
 	}
 
 }
