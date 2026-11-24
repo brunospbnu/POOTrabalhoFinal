@@ -44,13 +44,13 @@ public class Partida implements Serializable {
 		Inventario inventarioInicial = new Inventario(2);
 		switch (opcaoDeClasse) {
 		case 0:
-			personagemPartida = new Guerreiro("Guerreiro", 25, 150, 150, 30, 30, false, inventarioInicial);
+			personagemPartida = new Guerreiro("Guerreiro", 25, 150, 150, 30, 30, false, inventarioInicial, 20);
 			break;
 		case 1:
-			personagemPartida = new Mago("Mago", 15, 80, 80, 100, 100, false, inventarioInicial);
+			personagemPartida = new Mago("Mago", 15, 80, 80, 100, 100, false, inventarioInicial, 40);
 			break;
 		case 2:
-			personagemPartida = new Arqueiro("Arqueiro", 20, 100, 100, 50, 50, false, inventarioInicial);
+			personagemPartida = new Arqueiro("Arqueiro", 20, 100, 100, 50, 50, false, inventarioInicial, 15);
 			break;
 		default:
 			throw new IllegalArgumentException("Classe inválida");
