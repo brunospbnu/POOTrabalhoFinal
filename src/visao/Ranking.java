@@ -31,7 +31,7 @@ public class Ranking extends PainelFundo {
 	private JButton btnVoltar;
 
 	public Ranking(Menu menu) {
-		super("/Imagens/MenuPrincipal.jpg");
+		super("/Imagens/SomenteFundo.jpg");
 		this.menu = menu;
 		setLayout(null);
 
