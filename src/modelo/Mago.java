@@ -44,6 +44,14 @@ public class Mago extends Personagem {
 	@Override
 	public String getNomeRecurso() {
 	    return "Mana";
+	     
+	}
+	
+	@Override
+	public String getDescricaoHabilidade() {
+		return "Bola de Fogo: causa o triplo do dano base.";
 	}
 
+	
+	
 }

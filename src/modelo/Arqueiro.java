@@ -45,5 +45,10 @@ public class Arqueiro extends Personagem {
 	public String getNomeRecurso() {
 	    return "Foco";
 	}
+	
+	@Override
+	public String getDescricaoHabilidade() {
+		return "Flecha Divina: causa dano base + 10 e ativa a defesa.";
+	}
 
 }

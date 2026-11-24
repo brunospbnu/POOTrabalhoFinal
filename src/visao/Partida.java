@@ -57,6 +57,8 @@ public class Partida extends PainelFundo {
 	private BotaoImagem btnAtacar;
 	private BotaoImagem btnDefender;
 	private BotaoImagem btnHabilidade;
+	
+	private JLabel lblCustoHabilidade;
 
 	public Partida(Menu menu) {
 		super("/Imagens/SomenteFundo.jpg");
@@ -73,7 +75,7 @@ public class Partida extends PainelFundo {
 		lblInfoEncontro.setBorder(BorderFactory.createLineBorder(new Color(180, 140, 70), 2));
 		add(lblInfoEncontro);
 		
-		// Botão Salvar Partida (provisório em texto; quando criar o PNG, troque pela linha comentada)
+		// Botão Salvar Partida (provisório em texto; quando criar o PNG, trocar pela linha comentada)
 		// btnSalvarPartida = new BotaoImagem("/Imagens/BotãoSalvar.png");
 		btnSalvarPartida = new JButton("Salvar Partida");
 		btnSalvarPartida.setBounds(552, 10, 140, 28);
@@ -232,6 +234,9 @@ public class Partida extends PainelFundo {
 		});
 		add(btnDefender);
 
+		
+		// Botão da habilidade:
+		
 		btnHabilidade = new BotaoImagem("/Imagens/BotãoUsarHabilidade.png");
 		btnHabilidade.setBounds(535, 380, 157, 42);
 		btnHabilidade.addActionListener(new ActionListener() {
@@ -240,7 +245,21 @@ public class Partida extends PainelFundo {
 			}
 		});
 		add(btnHabilidade);
-
+		
+		// Texto informando custo da habilidade:
+		
+		lblCustoHabilidade = new JLabel("", SwingConstants.CENTER);
+		lblCustoHabilidade.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblCustoHabilidade.setForeground(new Color(255, 215, 100));
+		lblCustoHabilidade.setBounds(
+				btnHabilidade.getX() - 20,
+				btnHabilidade.getY() - 40,
+				btnHabilidade.getWidth() + 40,
+				36);
+		lblCustoHabilidade.setOpaque(true);
+		lblCustoHabilidade.setBackground(new Color(0, 0, 0, 150));
+		add(lblCustoHabilidade);
+		
 		// 6. Redimensionamento proporcional
 		addComponentListener(new ComponentAdapter() {
 			@Override
@@ -276,6 +295,12 @@ public class Partida extends PainelFundo {
 					btnAtacar.setBounds((int) (185 * px), (int) (380 * py), (int) (155 * px), (int) (42 * py));
 					btnDefender.setBounds((int) (360 * px), (int) (380 * py), (int) (155 * px), (int) (42 * py));
 					btnHabilidade.setBounds((int) (535 * px), (int) (380 * py), (int) (157 * px), (int) (42 * py));
+					
+					lblCustoHabilidade.setBounds(
+							btnHabilidade.getX() - (int) (20 * px),
+							btnHabilidade.getY() - (int) (40 * py),
+							btnHabilidade.getWidth() + (int) (40 * px),
+							(int) (36 * py));
 				}
 			}
 		});
@@ -383,7 +408,18 @@ public class Partida extends PainelFundo {
 		lblNomePersonagem.setText(partidaControle.getJogadorPartida().getNomeJogador() + " (" + heroi.getNome() + ")");
 		imgPersonagem.setImagem(heroi.getCaminhoImagem());
 		String nomeRecurso = heroi.getNomeRecurso();
-
+		
+		
+		// Informações sobre a habilidade:
+		Personagem p = partidaControle.getPersonagemPartida();
+		lblCustoHabilidade.setText("<html><center>Custo: " + p.getCustoRecursoHabilidade() + " " + p.getNomeRecurso()
+				+ "<br>" + p.getDescricaoHabilidade() + "</center></html>");
+		if (p.getRecursoAtual() < p.getCustoRecursoHabilidade()) {
+			lblCustoHabilidade.setForeground(new Color(255, 100, 100));
+		} else {
+			lblCustoHabilidade.setForeground(new Color(255, 215, 100));
+		}
+		
 		switch (nomeRecurso) {
 		case "Força":
 			barraRecursoPersonagem.setForeground(new Color(210, 120, 30)); // Laranja (Guerreiro)

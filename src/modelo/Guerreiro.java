@@ -46,6 +46,11 @@ public class Guerreiro extends Personagem {
 	public String getNomeRecurso() {
 	    return "Força";
 	}
+	
+	@Override
+	public String getDescricaoHabilidade() {
+		return "Quebra-Guarda: causa o dobro do dano base.";
+	}
 
 
 }
